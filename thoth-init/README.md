@@ -1,4 +1,6 @@
-# Setup database
+__[see [glossary](https://github.com/omismone/strapizzami/wiki/Glossario)]__  
+
+### Setup database
 1. Install mysql-server.
 1. Run with root user the script init.sql (same directory of this file).
 1. Run also create-tables.sql.
