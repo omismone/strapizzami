@@ -22,13 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `thoth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `thoth`;
-
---
--- User: 'hermes'
---
-CREATE USER 'hermes'@'localhost' IDENTIFIED BY 'censored';
-GRANT SELECT, INSERT, DELETE ON thoth.* TO 'hermes'@'localhost' WITH GRANT OPTION;
-
 -- --------------------------------------------------------
 
 --
