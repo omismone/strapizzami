@@ -56,4 +56,9 @@ public class Dish {
     public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
+
+    public void addIngredient(Ingredient ingredient){
+        if(this.ingredients == null) this.ingredients = new ArrayList<Ingredient>();
+        this.ingredients.add(ingredient);
+    }
 }

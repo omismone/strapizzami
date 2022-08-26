@@ -2,11 +2,11 @@ package model;
 
 public class Drink {
     private String name;
-    private Format format;
+    private String format;
     private int quantity;
     private float price;
 
-    public Drink(String name, Format format, int quantity, float price) {
+    public Drink(String name, String format, int quantity, float price) {
         this.name = name;
         this.format = format;
         this.quantity = quantity;
@@ -21,11 +21,11 @@ public class Drink {
         this.name = name;
     }
 
-    public Format getFormat() {
+    public String getFormat() {
         return format;
     }
 
-    public void setFormat(Format format) {
+    public void setFormat(String format) {
         this.format = format;
     }
 
