@@ -5,20 +5,29 @@ import services.dao.IFormatDao;
 import services.dao.rdb.RDBOperator;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RDBFormatDao implements IFormatDao {
     private RDBOperator operator;
+    private ArrayList<Format> cache;
 
     public RDBFormatDao(){
         operator = RDBOperator.getInstance();
     }
     @Override
     public ArrayList<Format> getFormats() {
-        return map(operator.getFormats());
+        if(cache == null) cache = map(operator.getFormats());
+        return cache;
     }
 
     private ArrayList<Format> map(ResultSet rs){
-        return null;
+        ArrayList<Format> result = new ArrayList<Format>();
+        try{
+            while(rs.next()){
+                result.add(new Format(rs.getString("NOME")));
+            }
+            return result;
+        }catch (SQLException ex){return null;}
     }
 }
