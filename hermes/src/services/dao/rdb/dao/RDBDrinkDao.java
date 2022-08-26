@@ -17,8 +17,15 @@ public class RDBDrinkDao implements IDrinkDao {
     }
     @Override
     public ArrayList<Drink> getDrinks() {
-        if(cache == null) cache = map(operator.getDrinks());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getDrinks());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ArrayList<Drink> map(ResultSet rs){
@@ -27,7 +34,7 @@ public class RDBDrinkDao implements IDrinkDao {
             while(rs.next()){
                 String name = rs.getString("NOME");
                 int quantity = rs.getInt("QUANTITA");
-                Float price = rs.getBigDecimal("PREZZO").floatValue();
+                Float price = rs.getFloat("PREZZO");
 
                 //idk if sql enum can be get by java Strings:
                 String drink_format = rs.getString("FORMATO");

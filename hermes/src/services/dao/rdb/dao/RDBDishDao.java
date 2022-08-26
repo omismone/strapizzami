@@ -20,8 +20,15 @@ public class RDBDishDao implements IDishDao {
     }
     @Override
     public ArrayList<Dish> getDishes() {
-        if(cache == null) cache = map(operator.getDishes(), operator.getIPS());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getDishes(), operator.getIPS());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -36,8 +43,9 @@ public class RDBDishDao implements IDishDao {
             while(dishes.next()){
                 Dish current_dish;
                 String name = dishes.getString("NOME");
-                Boolean frozen = dishes.getBoolean("SURGELATO");
-                Float price = dishes.getBigDecimal("PREZZO").floatValue();
+                Boolean frozen = (Boolean) dishes.getObject("SURGELATO");
+
+                Float price = dishes.getFloat("PREZZO");
                 current_dish = new Dish(name,null,frozen,price,null);
 
                 //get from persistence facade all classes and add the right one to the current dish
@@ -55,7 +63,9 @@ public class RDBDishDao implements IDishDao {
                 result.forEach(dish -> { if(dish.getName().equals(dish_name)) tot_ingredients.forEach(ingredient -> {if(ingredient.getName().equals(ingredient_name)) dish.addIngredient(ingredient);}); });
             }
             return result;
-        } catch (SQLException ex) {return null;}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

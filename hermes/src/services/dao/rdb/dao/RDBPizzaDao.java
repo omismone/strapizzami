@@ -20,8 +20,15 @@ public class RDBPizzaDao implements IPizzaDao {
     }
     @Override
     public ArrayList<Pizza> getPizzas() {
-        if(cache == null) cache = map(operator.getPizzas(), operator.getPIS(), operator.getPFS());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getPizzas(), operator.getPIS(), operator.getPFS());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -64,6 +71,8 @@ public class RDBPizzaDao implements IPizzaDao {
                 partial_result.forEach(pizza -> { if(pizza.getName().equals(pizza_name)) tot_formats.forEach(format -> {if(format.getName().equals(format_name)) result.add(new Pizza(pizza.getName(), format, pizza.getClasse(), price, pizza.getIngredients()));}); });
             }
             return result;
-        }catch (SQLException ex){return null;}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

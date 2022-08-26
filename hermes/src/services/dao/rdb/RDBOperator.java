@@ -1,18 +1,15 @@
 package services.dao.rdb;
 
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.*;
 import java.util.Properties;
 
 public class RDBOperator {
     private static RDBOperator singleton;
-    private String URL = "jdbc:mysql://localhost:3306/thoth";
-    private String USERNAME = "hermes";
-    private String PW = "censored";
+    private String URL = ""; //expected: jdbc:mysql://localhost:3306/thoth
+    private String USERNAME = "";
+    private String PW = "";
     private Connection connection;
 
     /**
@@ -21,7 +18,7 @@ public class RDBOperator {
      * @throws IOException
      */
     private RDBOperator() throws IOException {
-        InputStream input = new FileInputStream("config.properties");
+        InputStream input = this.getClass().getResourceAsStream("config.properties");
         Properties prop = new Properties();
         // load a properties file
         prop.load(input);
@@ -38,23 +35,33 @@ public class RDBOperator {
             if(singleton == null) singleton = new RDBOperator();
         } catch (IOException e) {
             singleton = null;
+            throw new RuntimeException(e);
         }
         return singleton;
     }
 
-    private void startConnection() throws SQLException {
-        if(connection == null)
+    public void startConnection() throws SQLException {
+        if(connection != null) return;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(URL,USERNAME,PW);
+        }
+        catch (InstantiationException e) { throw new RuntimeException(e); }
+        catch (IllegalAccessException e) { throw new RuntimeException(e); }
+        catch (ClassNotFoundException e) { throw new RuntimeException(e); }
     }
 
-    private void closeConnection() throws SQLException {
+    public void closeConnection() throws SQLException {
         if(!connection.isClosed()) connection.close();
     }
 
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getPizzas(){
         try {
-            startConnection();
-
             String query = "select * from pizza;";
             Statement statement;
             ResultSet result;
@@ -62,16 +69,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getDishes(){
         try {
-            startConnection();
-
             String query = "select * from pietanza;";
             Statement statement;
             ResultSet result;
@@ -79,16 +87,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getDrinks(){
         try {
-            startConnection();
-
             String query = "select * from bevanda;";
             Statement statement;
             ResultSet result;
@@ -96,16 +105,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getClassi(){
         try {
-            startConnection();
-
             String query = "select * from classe;";
             Statement statement;
             ResultSet result;
@@ -113,16 +123,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getFormats(){
         try {
-            startConnection();
-
             String query = "select * from formato;";
             Statement statement;
             ResultSet result;
@@ -130,16 +141,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getIngredients(){
         try {
-            startConnection();
-
             String query = "select * from ingrediente;";
             Statement statement;
             ResultSet result;
@@ -147,16 +159,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getPFS(){
         try {
-            startConnection();
-
             String query = "select * from pf;";
             Statement statement;
             ResultSet result;
@@ -164,16 +177,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getPIS(){
         try {
-            startConnection();
-
             String query = "select * from pi;";
             Statement statement;
             ResultSet result;
@@ -181,16 +195,17 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }
     }
-
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
     public ResultSet getIPS(){
         try {
-            startConnection();
-
             String query = "select * from ip;";
             Statement statement;
             ResultSet result;
@@ -198,7 +213,6 @@ public class RDBOperator {
             statement = connection.createStatement();
             result = statement.executeQuery(query);
 
-            closeConnection();
             return result;
         }
         catch (SQLException e) { return null; }

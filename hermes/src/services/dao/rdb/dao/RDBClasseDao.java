@@ -25,8 +25,15 @@ public class RDBClasseDao implements IClasseDao {
      */
     @Override
     public ArrayList<Classe> getClassi() {
-        if(cache == null) cache = map(operator.getClassi());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getClassi());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ArrayList<Classe> map(ResultSet rs){

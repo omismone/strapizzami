@@ -17,21 +17,30 @@ public class RDBIngredientDao implements IIngredientDao {
     }
     @Override
     public ArrayList<Ingredient> getIngredients() {
-        if(cache == null) cache = map(operator.getIngredients());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getIngredients());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ArrayList<Ingredient> map(ResultSet rs){
         ArrayList<Ingredient> result = new ArrayList<Ingredient>();
         try{
             while(rs.next()){
-                String name = rs.getString("NAME");
-                Boolean frozen = rs.getBoolean("SURGELATO");
-                Float price = rs.getBigDecimal("PREZZO").floatValue();
+                String name = rs.getString("NOME");
+                Boolean frozen = (Boolean) rs.getObject("SURGELATO");
+                Float price = rs.getFloat("PREZZO");
 
                 result.add(new Ingredient(name, frozen, price));
             }
             return result;
-        }catch (SQLException ex){return null;}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

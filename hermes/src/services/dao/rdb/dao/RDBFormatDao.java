@@ -17,8 +17,15 @@ public class RDBFormatDao implements IFormatDao {
     }
     @Override
     public ArrayList<Format> getFormats() {
-        if(cache == null) cache = map(operator.getFormats());
-        return cache;
+        if(cache != null) return cache;
+        try{
+            operator.startConnection();
+            cache = map(operator.getFormats());
+            operator.closeConnection();
+            return cache;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ArrayList<Format> map(ResultSet rs){
@@ -28,6 +35,8 @@ public class RDBFormatDao implements IFormatDao {
                 result.add(new Format(rs.getString("NOME")));
             }
             return result;
-        }catch (SQLException ex){return null;}
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
