@@ -1,5 +1,7 @@
 __[see [glossary](https://github.com/omismone/strapizzami/wiki/Glossario)]__  
 
+# Thoth instructions
+
 ## Setup database
 
 1. Install mysql-server.
