@@ -5,7 +5,7 @@ if you want tu run this app make sure you have installed [tomcat](https://tomcat
 to run it you have to:
 - read the README file in {project folder}/thoth, there are instruction to set properly the db.
 - have the db working.
-- run the app.
+- compile the app.
 - export it as war file.
 - push the war file to your tomcat server.
 
