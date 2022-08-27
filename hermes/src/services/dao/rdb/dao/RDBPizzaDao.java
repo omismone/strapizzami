@@ -7,6 +7,7 @@ import services.PersistenceFacade;
 import services.dao.IPizzaDao;
 import services.dao.rdb.RDBOperator;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +23,13 @@ public class RDBPizzaDao implements IPizzaDao {
     public ArrayList<Pizza> getPizzas() {
         if(cache != null) return cache;
         try{
-            operator.startConnection();
-            cache = map(operator.getPizzas(), operator.getPIS(), operator.getPFS());
-            operator.closeConnection();
+            Connection c1 = operator.startConnection();
+            Connection c2 = operator.startConnection();
+            Connection c3 = operator.startConnection();
+            cache = map(operator.getPizzas(c1), operator.getPIS(c2), operator.getPFS(c3));
+            operator.closeConnection(c1);
+            operator.closeConnection(c2);
+            operator.closeConnection(c3);
             return cache;
         } catch (SQLException e) {
             throw new RuntimeException(e);

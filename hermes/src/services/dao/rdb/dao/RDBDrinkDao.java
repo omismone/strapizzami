@@ -4,6 +4,7 @@ import model.Drink;
 import services.dao.IDrinkDao;
 import services.dao.rdb.RDBOperator;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ public class RDBDrinkDao implements IDrinkDao {
     public ArrayList<Drink> getDrinks() {
         if(cache != null) return cache;
         try{
-            operator.startConnection();
-            cache = map(operator.getDrinks());
-            operator.closeConnection();
+            Connection c = operator.startConnection();
+            cache = map(operator.getDrinks(c));
+            operator.closeConnection(c);
             return cache;
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -7,6 +7,7 @@ import services.PersistenceFacade;
 import services.dao.IDishDao;
 import services.dao.rdb.RDBOperator;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,9 +23,12 @@ public class RDBDishDao implements IDishDao {
     public ArrayList<Dish> getDishes() {
         if(cache != null) return cache;
         try{
-            operator.startConnection();
-            cache = map(operator.getDishes(), operator.getIPS());
-            operator.closeConnection();
+            Connection c1, c2;
+            c1 = operator.startConnection();
+            c2 = operator.startConnection();
+            cache = map(operator.getDishes(c1), operator.getIPS(c2));
+            operator.closeConnection(c1);
+            operator.closeConnection(c2);
             return cache;
         } catch (SQLException e) {
             throw new RuntimeException(e);

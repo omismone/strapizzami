@@ -4,6 +4,7 @@ import model.Format;
 import services.dao.IFormatDao;
 import services.dao.rdb.RDBOperator;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ public class RDBFormatDao implements IFormatDao {
     public ArrayList<Format> getFormats() {
         if(cache != null) return cache;
         try{
-            operator.startConnection();
-            cache = map(operator.getFormats());
-            operator.closeConnection();
+            Connection c = operator.startConnection();
+            cache = map(operator.getFormats(c));
+            operator.closeConnection(c);
             return cache;
         } catch (SQLException e) {
             throw new RuntimeException(e);

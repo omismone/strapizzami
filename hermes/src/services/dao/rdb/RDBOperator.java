@@ -10,7 +10,6 @@ public class RDBOperator {
     private String URL = ""; //expected: jdbc:mysql://localhost:3306/thoth
     private String USERNAME = "";
     private String PW = "";
-    private Connection connection;
 
     /**
      * this is the class that communicate with mysql DB
@@ -40,19 +39,20 @@ public class RDBOperator {
         return singleton;
     }
 
-    public void startConnection() throws SQLException {
-        if(connection != null) return;
+    public Connection startConnection() throws SQLException {
+        Connection connection;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(URL,USERNAME,PW);
+            return connection;
         }
         catch (InstantiationException e) { throw new RuntimeException(e); }
         catch (IllegalAccessException e) { throw new RuntimeException(e); }
         catch (ClassNotFoundException e) { throw new RuntimeException(e); }
     }
 
-    public void closeConnection() throws SQLException {
-        if(!connection.isClosed()) connection.close();
+    public void closeConnection(Connection conn) throws SQLException {
+        if(!conn.isClosed()) conn.close();
     }
 
     /**
@@ -60,7 +60,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getPizzas(){
+    public ResultSet getPizzas(Connection connection){
         try {
             String query = "select * from pizza;";
             Statement statement;
@@ -78,7 +78,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getDishes(){
+    public ResultSet getDishes(Connection connection){
         try {
             String query = "select * from pietanza;";
             Statement statement;
@@ -96,7 +96,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getDrinks(){
+    public ResultSet getDrinks(Connection connection){
         try {
             String query = "select * from bevanda;";
             Statement statement;
@@ -114,7 +114,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getClassi(){
+    public ResultSet getClassi(Connection connection){
         try {
             String query = "select * from classe;";
             Statement statement;
@@ -132,7 +132,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getFormats(){
+    public ResultSet getFormats(Connection connection){
         try {
             String query = "select * from formato;";
             Statement statement;
@@ -150,7 +150,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getIngredients(){
+    public ResultSet getIngredients(Connection connection){
         try {
             String query = "select * from ingrediente;";
             Statement statement;
@@ -168,7 +168,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getPFS(){
+    public ResultSet getPFS(Connection connection){
         try {
             String query = "select * from pf;";
             Statement statement;
@@ -186,7 +186,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getPIS(){
+    public ResultSet getPIS(Connection connection){
         try {
             String query = "select * from pi;";
             Statement statement;
@@ -204,7 +204,7 @@ public class RDBOperator {
      * AND call closeConnection() after!!
      * @return
      */
-    public ResultSet getIPS(){
+    public ResultSet getIPS(Connection connection){
         try {
             String query = "select * from ip;";
             Statement statement;

@@ -4,6 +4,7 @@ import model.Classe;
 import services.dao.IClasseDao;
 import services.dao.rdb.RDBOperator;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,9 +28,9 @@ public class RDBClasseDao implements IClasseDao {
     public ArrayList<Classe> getClassi() {
         if(cache != null) return cache;
         try{
-            operator.startConnection();
-            cache = map(operator.getClassi());
-            operator.closeConnection();
+            Connection c = operator.startConnection();
+            cache = map(operator.getClassi(c));
+            operator.closeConnection(c);
             return cache;
         } catch (SQLException e) {
             throw new RuntimeException(e);
