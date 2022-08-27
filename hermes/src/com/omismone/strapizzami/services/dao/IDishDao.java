@@ -1,6 +1,6 @@
-package services.dao;
+package com.omismone.strapizzami.services.dao;
 
-import model.Dish;
+import com.omismone.strapizzami.model.Dish;
 
 import java.util.ArrayList;
 

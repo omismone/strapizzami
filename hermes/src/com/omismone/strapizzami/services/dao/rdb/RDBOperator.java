@@ -1,4 +1,4 @@
-package services.dao.rdb;
+package com.omismone.strapizzami.services.dao.rdb;
 
 
 import java.io.*;

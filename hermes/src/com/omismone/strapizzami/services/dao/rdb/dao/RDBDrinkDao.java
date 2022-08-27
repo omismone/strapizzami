@@ -1,8 +1,8 @@
-package services.dao.rdb.dao;
+package com.omismone.strapizzami.services.dao.rdb.dao;
 
-import model.Drink;
-import services.dao.IDrinkDao;
-import services.dao.rdb.RDBOperator;
+import com.omismone.strapizzami.model.Drink;
+import com.omismone.strapizzami.services.dao.IDrinkDao;
+import com.omismone.strapizzami.services.dao.rdb.RDBOperator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

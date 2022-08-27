@@ -1,12 +1,12 @@
-package services;
+package com.omismone.strapizzami.services;
 
-import model.Dish;
-import model.Format;
-import model.Ingredient;
-import model.Classe;
-import model.Pizza;
-import model.Drink;
-import services.dao.*;
+import com.omismone.strapizzami.model.Dish;
+import com.omismone.strapizzami.model.Format;
+import com.omismone.strapizzami.model.Ingredient;
+import com.omismone.strapizzami.model.Classe;
+import com.omismone.strapizzami.model.Pizza;
+import com.omismone.strapizzami.model.Drink;
+import com.omismone.strapizzami.services.dao.*;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package services;
+package com.omismone.strapizzami.services;
 
-import services.dao.*;
-import services.dao.rdb.dao.*;
+import com.omismone.strapizzami.services.dao.*;
+import com.omismone.strapizzami.services.dao.rdb.dao.*;
 
 /**
  * this class is the manager of dao's instantiation

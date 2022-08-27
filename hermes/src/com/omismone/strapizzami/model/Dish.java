@@ -1,18 +1,18 @@
-package model;
+package com.omismone.strapizzami.model;
 
 import java.util.ArrayList;
 
-public class Pizza {
+public class Dish {
     private String name;
-    private Format format;
     private Classe classe;
+    private Boolean frozen;
     private float price;
     private ArrayList<Ingredient> ingredients;
 
-    public Pizza(String name, Format format, Classe classe, float price, ArrayList<Ingredient> ingredients) {
+    public Dish(String name, Classe classe, Boolean frozen, float price, ArrayList<Ingredient> ingredients) {
         this.name = name;
-        this.format = format;
         this.classe = classe;
+        this.frozen = frozen;
         this.price = price;
         this.ingredients = ingredients;
     }
@@ -25,20 +25,20 @@ public class Pizza {
         this.name = name;
     }
 
-    public Format getFormat() {
-        return format;
-    }
-
-    public void setFormat(Format format) {
-        this.format = format;
-    }
-
     public Classe getClasse() {
         return classe;
     }
 
     public void setClasse(Classe classe) {
         this.classe = classe;
+    }
+
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
     }
 
     public float getPrice() {
@@ -61,5 +61,4 @@ public class Pizza {
         if(this.ingredients == null) this.ingredients = new ArrayList<Ingredient>();
         this.ingredients.add(ingredient);
     }
-
 }

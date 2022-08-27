@@ -1,8 +1,8 @@
-package services.dao.rdb.dao;
+package com.omismone.strapizzami.services.dao.rdb.dao;
 
-import model.Classe;
-import services.dao.IClasseDao;
-import services.dao.rdb.RDBOperator;
+import com.omismone.strapizzami.model.Classe;
+import com.omismone.strapizzami.services.dao.IClasseDao;
+import com.omismone.strapizzami.services.dao.rdb.RDBOperator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

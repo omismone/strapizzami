@@ -1,11 +1,11 @@
-package services.dao.rdb.dao;
+package com.omismone.strapizzami.services.dao.rdb.dao;
 
-import model.Format;
-import model.Ingredient;
-import model.Pizza;
-import services.PersistenceFacade;
-import services.dao.IPizzaDao;
-import services.dao.rdb.RDBOperator;
+import com.omismone.strapizzami.model.Format;
+import com.omismone.strapizzami.model.Ingredient;
+import com.omismone.strapizzami.model.Pizza;
+import com.omismone.strapizzami.services.PersistenceFacade;
+import com.omismone.strapizzami.services.dao.IPizzaDao;
+import com.omismone.strapizzami.services.dao.rdb.RDBOperator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -37,7 +37,7 @@ public class RDBPizzaDao implements IPizzaDao {
     }
 
     /**
-     * this method is highly coupled with the design of pizzas on e/r model
+     * this method is highly coupled with the design of pizzas on e/r com.omismone.strapizzami.model
      * see that to know why it's implemented like this
      *
      * this method calls PersistenceFacade to get the ingredients, classes and formats list

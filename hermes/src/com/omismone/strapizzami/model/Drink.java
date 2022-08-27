@@ -1,4 +1,4 @@
-package model;
+package com.omismone.strapizzami.model;
 
 public class Drink {
     private String name;

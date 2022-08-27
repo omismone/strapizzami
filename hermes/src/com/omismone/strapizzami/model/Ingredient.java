@@ -1,4 +1,4 @@
-package model;
+package com.omismone.strapizzami.model;
 
 public class Ingredient {
     private String name;

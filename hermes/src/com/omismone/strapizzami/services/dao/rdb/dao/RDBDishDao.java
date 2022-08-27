@@ -1,11 +1,10 @@
-package services.dao.rdb.dao;
+package com.omismone.strapizzami.services.dao.rdb.dao;
 
-import model.Classe;
-import model.Dish;
-import model.Ingredient;
-import services.PersistenceFacade;
-import services.dao.IDishDao;
-import services.dao.rdb.RDBOperator;
+import com.omismone.strapizzami.model.Dish;
+import com.omismone.strapizzami.model.Ingredient;
+import com.omismone.strapizzami.services.PersistenceFacade;
+import com.omismone.strapizzami.services.dao.IDishDao;
+import com.omismone.strapizzami.services.dao.rdb.RDBOperator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,7 +35,7 @@ public class RDBDishDao implements IDishDao {
     }
 
     /**
-     * this method is highly coupled with the design of dishes on e/r model
+     * this method is highly coupled with the design of dishes on e/r com.omismone.strapizzami.model
      * see that to know why it's implemented like this
      *
      * this method calls PersistenceFacade to get the ingredients list and classes list

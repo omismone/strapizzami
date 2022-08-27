@@ -1,6 +1,6 @@
-package services.dao;
+package com.omismone.strapizzami.services.dao;
 
-import model.Format;
+import com.omismone.strapizzami.model.Format;
 
 import java.util.ArrayList;
 
