@@ -1,4 +1,6 @@
-# Hermes instruction:
+__[see [glossary](https://github.com/omismone/strapizzami/wiki/Glossario)]__  
+
+# Hermes instructions
 
 if you want tu run this app make sure you have installed [tomcat](https://tomcat.apache.org/download-10.cgi) on your machine.  
 
