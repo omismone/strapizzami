@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ago 25, 2022 alle 00:10
+-- Creato il: Ago 29, 2022 alle 01:57
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -22,6 +22,7 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `thoth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `thoth`;
+
 -- --------------------------------------------------------
 
 --
@@ -89,7 +90,7 @@ TRUNCATE TABLE `classe`;
 
 INSERT INTO `classe` (`NOME`, `DESCRIZIONE`, `IMPORTANZA`) VALUES
 ('Friggitoria', NULL, 100),
-('La Pizza della Settimana', NULL, 10),
+('La Pizza della Settimana', 'disponibile fino a questa domenica!', 10),
 ('Le Pizze Gourmet', NULL, 40),
 ('Le Pizze Scelte Da Voi', NULL, 50),
 ('Le Speciali', 'base bianca solo mozzarella', 30),
@@ -177,12 +178,12 @@ INSERT INTO `ingrediente` (`NOME`, `SURGELATO`, `PREZZO`) VALUES
 ('Gamberetti', 1, '3.00'),
 ('Glassa di aceto', 0, '1.00'),
 ('Grana', 0, '1.00'),
-('Granchio', 1, '2.00'),
+('Granchio', 0, '2.00'),
 ('Granella di pistacchi', 0, '1.00'),
 ('Jalapenos', 0, '1.00'),
 ('Mais', 0, '1.00'),
 ('Melanzane', 0, '1.00'),
-('Misto mare', 0, NULL),
+('Misto mare', 1, NULL),
 ('Mortadella', 0, '1.00'),
 ('Mozzarella', 0, '1.00'),
 ('Nduja', 0, '2.00'),
@@ -276,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `pf` (
   PRIMARY KEY (`ID`),
   KEY `PFP` (`PIZZA`),
   KEY `PFF` (`FORMATO`)
-) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 
 --
 -- Svuota la tabella prima dell'inserimento `pf`
