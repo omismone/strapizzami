@@ -11,14 +11,14 @@ import com.omismone.strapizzami.controller.PresentationController;
 /**
  * Servlet implementation class home
  */
-@WebServlet("/home")
-public class home extends HttpServlet {
+@WebServlet("/menu")
+public class menu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public home() {
+    public menu() {
         // TODO Auto-generated constructor stub
     }
 
@@ -27,7 +27,7 @@ public class home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append(PresentationController.getInstance().getPage("home"));
+		response.getWriter().append(PresentationController.getInstance().getPage("menu"));
 	}
 
 	/**

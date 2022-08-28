@@ -37,7 +37,7 @@
             <nav class="navbar bg-light fixed-top">
                 <div class="container-fluid">
                     
-                    <a class="navbar-brand fs-4" style="margin-right: 5vw;  font-weight: 800; color: var(--brown);" href="#">
+                    <a class="navbar-brand fs-4" style="margin-right: 5vw;  font-weight: 800; color: var(--brown);" href="/home">
                         <img src="assets/logo1024.png" alt="" width="30" height="30" class="d-inline-block align-text-top">Strapizzami</img>
                     </a>
                     <button class="navbar-toggler" style=" border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
                     <div class="collapse navbar-collapse fs-5" style="align-items: center; text-align: center;" id="navbarNav">
                         <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/menu">Menù</a>
@@ -86,7 +86,7 @@
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <a href="#"><img class="d-block w-100" src="assets/settimana.png" alt="First news"></a>
+                                <a href="/menu"><img class="d-block w-100" src="assets/settimana.png" alt="First news"></a>
                             </div>
                             <div class="carousel-item">
                                 <a href="https://www.instagram.com/p/Cd-rq15Im4-/?hl=it"><img class="d-block w-100" src="assets/treanni.png" alt="Last news"></a>
