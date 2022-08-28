@@ -1,6 +1,9 @@
 # Personal
 mysql-connector-java-8.0.30/
 config.properties
+build/
+.classpath
+.project
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,linux,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,linux,java
