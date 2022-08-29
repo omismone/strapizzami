@@ -45,6 +45,14 @@ public class RDBPizzaDao implements IPizzaDao {
 		return byclasse;
 	}
 
+	@Override
+	public ArrayList<Pizza> getPizzaByName(String name) {
+		if(cache == null) getPizzas();
+		ArrayList<Pizza> byname = new ArrayList<Pizza>();
+		cache.forEach(pizza -> {if(pizza.getName().equals(name)) byname.add(pizza);});
+		return byname;
+	}
+	
     /**
      * this method is highly coupled with the design of pizzas on e/r com.omismone.strapizzami.model
      * see that to know why it's implemented like this

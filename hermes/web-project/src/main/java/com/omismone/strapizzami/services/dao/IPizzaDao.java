@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface IPizzaDao {
     public ArrayList<Pizza> getPizzas();
     public ArrayList<Pizza> getPizzasByClasse(Classe classe);
+    public ArrayList<Pizza> getPizzaByName(String name);
 }
