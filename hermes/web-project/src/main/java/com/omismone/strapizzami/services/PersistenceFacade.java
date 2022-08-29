@@ -51,6 +51,10 @@ public class PersistenceFacade {
     	return drink_dao.getDrinksByPrice(price);
     }
 
+    public ArrayList<Drink> getDrinksByFormat(String format){
+    	return drink_dao.getDrinksByFormat(format);
+    }
+
     public ArrayList<Dish> getDishes(){
         return dish_dao.getDishes();
     }

@@ -36,6 +36,15 @@ public class RDBDrinkDao implements IDrinkDao {
 		cache.forEach(drink -> {if(drink.getPrice() == price) byprice.add(drink);});
 		return byprice;
 	}
+	
+
+	@Override
+	public ArrayList<Drink> getDrinksByFormat(String format) {
+		if(cache == null) getDrinks();
+		ArrayList<Drink> byformat = new ArrayList<Drink>();
+		cache.forEach(drink -> {if(drink.getFormat().equals(format)) byformat.add(drink);});
+		return byformat;
+	}
 
     private ArrayList<Drink> map(ResultSet rs){
         ArrayList<Drink> result = new ArrayList<Drink>();
