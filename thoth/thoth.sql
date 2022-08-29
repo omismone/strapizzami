@@ -3,7 +3,6 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ago 29, 2022 alle 01:57
 -- Versione del server: 10.4.24-MariaDB
 -- Versione PHP: 7.4.29
 
@@ -406,7 +405,6 @@ INSERT INTO `pf` (`ID`, `PREZZO`, `PIZZA`, `FORMATO`) VALUES
 (115, '9.00', 'Gioiosa', 'Normal'),
 (116, '14.00', 'Gioiosa', 'Family'),
 (117, '8.50', 'A riccia', 'Baby'),
-(118, '10.50', 'Atomica', 'Normal'),
 (119, '15.50', 'A riccia', 'Family'),
 (120, '7.50', 'Rustica', 'Baby'),
 (121, '9.50', 'Rustica', 'Normal'),
@@ -474,7 +472,7 @@ CREATE TABLE IF NOT EXISTS `pi` (
   PRIMARY KEY (`ID`),
   KEY `PIP` (`PIZZA`),
   KEY `PII` (`INGREDIENTE`)
-) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8;
 
 --
 -- Svuota la tabella prima dell'inserimento `pi`
@@ -767,7 +765,8 @@ INSERT INTO `pi` (`ID`, `PIZZA`, `INGREDIENTE`) VALUES
 (280, 'Granellosa', 'Granella di pistacchi'),
 (281, 'Primavera', 'Glassa di aceto'),
 (282, 'Del conte', 'Pepe macinato'),
-(283, 'Ficata', 'Crema di fichi');
+(283, 'Ficata', 'Crema di fichi'),
+(284, 'Frutti di mare', 'Misto mare');
 
 -- --------------------------------------------------------
 
