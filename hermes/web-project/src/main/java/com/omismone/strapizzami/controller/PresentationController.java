@@ -272,9 +272,11 @@ public class PresentationController {
 					if(!already_done_formats.contains(actual_format)) {
 						content += getClasseHtmlRepr("Bevande", "in " + actual_format);
 						ArrayList<Drink> byformat = PersistenceFacade.getInstance().getDrinksByFormat(actual_format);
+						String name_b = "";
 						if(byformat != null) {
 							for(int z = 0; z<byformat.size(); z++) {
-								content += getFoodHtmlRepr(byformat.get(z).getName(), new ArrayList<String>(Arrays.asList(String.format("%.2f", byformat.get(z).getPrice()))), null);
+								name_b = byformat.get(z).getName() + " (" + String.valueOf(byformat.get(z).getQuantity()) + "cl)";
+								content += getFoodHtmlRepr(name_b, new ArrayList<String>(Arrays.asList(String.format("%.2f", byformat.get(z).getPrice()))), null);
 							}
 						}
 						already_done_formats.add(actual_format);
