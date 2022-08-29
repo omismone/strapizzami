@@ -222,7 +222,7 @@ public class PresentationController {
 						ArrayList<Pizza> actual_pizza_withall_formats = PersistenceFacade.getInstance().getPizzaByName(pizzas.get(pizzas_indx).getName());
 						already_done_pizzas.add(actual_pizza_withall_formats.get(0).getName());
 						ArrayList<String> ingredients = new ArrayList<String>();
-						actual_pizza_withall_formats.get(0).getIngredients().forEach(ingre -> {ingredients.add(ingre.getName());});
+						actual_pizza_withall_formats.get(0).getIngredients().forEach(ingre -> {ingredients.add(ingre.getName() + (ingre.getFrozen() ? '*':""));});
 						
 						ArrayList<String> prices = new ArrayList<String>();
 						actual_pizza_withall_formats.forEach(pzza -> {prices.add(String.format("%.2f", pzza.getPrice()));});
@@ -235,13 +235,16 @@ public class PresentationController {
 				if(dishes != null && dishes.size() != 0) {
 					content += getClasseHtmlRepr(classi.get(i).getName(), classi.get(i).getDescription());
 					
-					for(int ii=0;ii<dishes.size();ii++) {
-						ArrayList<String> ingredients = new ArrayList<String>();
-						ArrayList<String> prices = new ArrayList<String>();
-						prices.add(String.format("%.2f",dishes.get(ii).getPrice()));
-						if(dishes.get(ii).getIngredients() != null)
-							dishes.get(ii).getIngredients().forEach(ingredient -> {ingredients.add(ingredient.getName());});
-						content += getFoodHtmlRepr(dishes.get(ii).getName(), prices, ingredients.size() == 0 ? null : ingredients);
+					for(int i2=0;i2<dishes.size();i2++) {
+						ArrayList<String> ingredients2 = new ArrayList<String>();
+						ArrayList<String> prices2 = new ArrayList<String>();
+						prices2.add(String.format("%.2f",dishes.get(i2).getPrice()));
+						if(dishes.get(i2).getIngredients() != null) {
+							dishes.get(i2).getIngredients().forEach(ingredient2 -> {ingredients2.add(ingredient2.getName() + (ingredient2.getFrozen() ? '*':""));});
+							content += getFoodHtmlRepr(dishes.get(i2).getName(), prices2, ingredients2);
+						}else {
+							content += getFoodHtmlRepr(dishes.get(i2).getName(), prices2, null);
+						}
 					}
 				}
 			}
@@ -278,6 +281,13 @@ public class PresentationController {
 					}
 				}
 			}
+			
+			ArrayList<String> info_prod = new ArrayList<String>();
+			info_prod.add("*prodotto surgelato");
+			
+			content += "<br><br>";
+			content += getFormatsHtmlRepr(info_prod);
+			content += "<br>";
 
 		}
 		
