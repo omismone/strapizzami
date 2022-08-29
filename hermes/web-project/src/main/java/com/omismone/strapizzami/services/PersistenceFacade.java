@@ -46,9 +46,17 @@ public class PersistenceFacade {
     public ArrayList<Drink> getDrinks(){
         return drink_dao.getDrinks();
     }
+    
+    public ArrayList<Drink> getDrinksByPrice(float price){
+    	return drink_dao.getDrinksByPrice(price);
+    }
 
     public ArrayList<Dish> getDishes(){
         return dish_dao.getDishes();
+    }
+    
+    public ArrayList<Dish> getDishesByClasse(Classe classe){
+    	return dish_dao.getDishesByClasse(classe);
     }
 
     public ArrayList<Ingredient> getIngredients(){
@@ -59,4 +67,8 @@ public class PersistenceFacade {
         return pizza_dao.getPizzas();
     }
 
+    public ArrayList<Pizza> getPizzasByClasse(Classe classe){
+    	return pizza_dao.getPizzasByClasse(classe);
+    }
+    
 }

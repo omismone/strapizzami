@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IDrinkDao {
     public ArrayList<Drink> getDrinks();
+    public ArrayList<Drink> getDrinksByPrice(float price);
 }

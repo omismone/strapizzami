@@ -1,5 +1,6 @@
 package com.omismone.strapizzami.services.dao.rdb.dao;
 
+import com.omismone.strapizzami.model.Classe;
 import com.omismone.strapizzami.model.Format;
 import com.omismone.strapizzami.model.Ingredient;
 import com.omismone.strapizzami.model.Pizza;
@@ -35,6 +36,14 @@ public class RDBPizzaDao implements IPizzaDao {
             throw new RuntimeException(e);
         }
     }
+
+	@Override
+	public ArrayList<Pizza> getPizzasByClasse(Classe classe) {
+		if(cache == null) getPizzas();
+		ArrayList<Pizza> byclasse = new ArrayList<Pizza>();
+		cache.forEach(pizza -> {if(pizza.getClasse().equals(classe)) byclasse.add(pizza);});
+		return byclasse;
+	}
 
     /**
      * this method is highly coupled with the design of pizzas on e/r com.omismone.strapizzami.model

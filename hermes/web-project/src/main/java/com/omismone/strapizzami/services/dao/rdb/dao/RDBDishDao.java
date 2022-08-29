@@ -1,5 +1,6 @@
 package com.omismone.strapizzami.services.dao.rdb.dao;
 
+import com.omismone.strapizzami.model.Classe;
 import com.omismone.strapizzami.model.Dish;
 import com.omismone.strapizzami.model.Ingredient;
 import com.omismone.strapizzami.services.PersistenceFacade;
@@ -33,6 +34,14 @@ public class RDBDishDao implements IDishDao {
             throw new RuntimeException(e);
         }
     }
+
+	@Override
+	public ArrayList<Dish> getDishesByClasse(Classe classe) {
+		if(cache == null) getDishes();
+		ArrayList<Dish> byclasse = new ArrayList<Dish>();
+		cache.forEach(dish -> {if(dish.getClasse().equals(classe)) byclasse.add(dish);});
+		return byclasse;
+	}
 
     /**
      * this method is highly coupled with the design of dishes on e/r com.omismone.strapizzami.model
