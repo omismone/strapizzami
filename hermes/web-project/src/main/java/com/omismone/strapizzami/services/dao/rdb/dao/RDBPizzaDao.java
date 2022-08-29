@@ -46,7 +46,7 @@ public class RDBPizzaDao implements IPizzaDao {
 	}
 
 	@Override
-	public ArrayList<Pizza> getPizzaByName(String name) {
+	public ArrayList<Pizza> getPizzasByName(String name) {
 		if(cache == null) getPizzas();
 		ArrayList<Pizza> byname = new ArrayList<Pizza>();
 		cache.forEach(pizza -> {if(pizza.getName().equals(name)) byname.add(pizza);});

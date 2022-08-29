@@ -209,7 +209,7 @@ public class PresentationController {
 					content += getClasseHtmlRepr(classi.get(i).getName(), classi.get(i).getDescription());
 					//print formats
 					ArrayList<String> formats = new ArrayList<String>();
-					ArrayList<Pizza> first_pizza_with_every_format = PersistenceFacade.getInstance().getPizzaByName(pizzas.get(0).getName());
+					ArrayList<Pizza> first_pizza_with_every_format = PersistenceFacade.getInstance().getPizzasByName(pizzas.get(0).getName());
 					if(first_pizza_with_every_format != null)
 						if(first_pizza_with_every_format.size() != 0) {
 							first_pizza_with_every_format.forEach(pizza -> {formats.add(pizza.getFormat().getName());}); //take first pizza all formats name
@@ -219,7 +219,7 @@ public class PresentationController {
 					ArrayList<String> already_done_pizzas = new ArrayList<String>();
 					for(int pizzas_indx = 0; pizzas_indx < pizzas.size(); pizzas_indx++) {
 						if(already_done_pizzas.contains(pizzas.get(pizzas_indx).getName())) continue; //if a pizza with the same name was already done
-						ArrayList<Pizza> actual_pizza_withall_formats = PersistenceFacade.getInstance().getPizzaByName(pizzas.get(pizzas_indx).getName());
+						ArrayList<Pizza> actual_pizza_withall_formats = PersistenceFacade.getInstance().getPizzasByName(pizzas.get(pizzas_indx).getName());
 						already_done_pizzas.add(actual_pizza_withall_formats.get(0).getName());
 						ArrayList<String> ingredients = new ArrayList<String>();
 						actual_pizza_withall_formats.get(0).getIngredients().forEach(ingre -> {ingredients.add(ingre.getName() + (ingre.getFrozen() ? '*':""));});

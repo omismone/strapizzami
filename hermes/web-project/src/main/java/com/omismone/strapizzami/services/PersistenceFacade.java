@@ -75,8 +75,8 @@ public class PersistenceFacade {
     	return pizza_dao.getPizzasByClasse(classe);
     }
     
-    public ArrayList<Pizza> getPizzaByName(String name){
-    	return pizza_dao.getPizzaByName(name);
+    public ArrayList<Pizza> getPizzasByName(String name){
+    	return pizza_dao.getPizzasByName(name);
     }
     
 }
