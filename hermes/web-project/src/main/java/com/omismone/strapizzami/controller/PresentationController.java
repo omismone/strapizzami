@@ -308,7 +308,7 @@ public class PresentationController {
 				+ "                    <br /> "
 				+ "                    <i style=\"font-size: 0.7em;\">+39 338 169 7359</i> "
 				+ "                    <br /> "
-				+ "                    <div style=\"background-color: rgba(0, 0, 0, 0.2);\"><i style=\"font-size: 0.75em;\">Copyright © 2019-2022, strapizzami.app</i></div> "
+				+ "                    <div style=\"background-color: rgba(0, 0, 0, 0.2);\"><i style=\"font-size: 0.75em;\">Copyright © 2019-2022, pizzeriastrapizzami.com</i></div> "
 				+ "                </footer> "
 				+ "            </div> "
 				+ "            <!-- Footer --> "
