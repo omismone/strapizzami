@@ -129,9 +129,9 @@ INSERT INTO `formato` (`NOME`) VALUES
 
 DROP TABLE IF EXISTS `gestore`;
 CREATE TABLE IF NOT EXISTS `gestore` (
-  `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`username`)
+  `USERNAME` varchar(30) NOT NULL,
+  `PASSWORD` varchar(30) NOT NULL,
+  PRIMARY KEY (`USERNAME`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
