@@ -308,4 +308,22 @@ public class RDBOperator {
         }
         catch (SQLException e) { return false; }
     }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertClasse(Connection connection, String name, String description, int relevance){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into pf(NOME,DESCRIZIONE,IMPORTANZA) values (?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
+			statement.setString(2, description);
+			statement.setInt(3, relevance);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
 }
