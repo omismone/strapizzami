@@ -2,6 +2,7 @@ package com.omismone.strapizzami.services.dao.rdb;
 
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Properties;
 
@@ -216,5 +217,95 @@ public class RDBOperator {
             return result;
         }
         catch (SQLException e) { return null; }
+    }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public ResultSet getAdmins(Connection connection){
+        try {
+            String query = "select * from gestore;";
+            Statement statement;
+            ResultSet result;
+
+            statement = connection.createStatement();
+            result = statement.executeQuery(query);
+
+            return result;
+        }
+        catch (SQLException e) { return null; }
+    }
+    
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertPizza(Connection connection, String name, String classe, Boolean visibility){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into pizza(NOME,CLASSE,VISIBILE) values (?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
+			statement.setString(2, classe);
+			statement.setInt(3, visibility ? 1 : 0);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertIngredient(Connection connection, String name, Boolean frozen, float price){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into ingrediente(NOME,SURGELATO,PREZZO) values (?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
+			statement.setInt(2, frozen ? 1 : 0);
+			statement.setBigDecimal(3, new BigDecimal(String.format("%.2f", price)));
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertPI(Connection connection, String pizza_name, String ingredient_name){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into pi(PIZZA,INGREDIENTE) values (?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, pizza_name);
+			statement.setString(2, ingredient_name);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertPF(Connection connection, String pizza_name, String format_name, float price){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into pf(PREZZO,PIZZA,FORMATO) values (?,?,?);";
+			statement = connection.prepareStatement(query);
+			statement.setBigDecimal(1, new BigDecimal(String.format("%.2f", price)));
+			statement.setString(2, pizza_name);
+			statement.setString(3, format_name);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
     }
 }
