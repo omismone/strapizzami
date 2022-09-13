@@ -8,13 +8,21 @@ public class Pizza {
     private Classe classe;
     private float price;
     private ArrayList<Ingredient> ingredients;
+    private Boolean visible;
 
-    public Pizza(String name, Format format, Classe classe, float price, ArrayList<Ingredient> ingredients) {
+    public Pizza(String name, Format format, Classe classe, float price, ArrayList<Ingredient> ingredients, Boolean visibility) {
         this.name = name;
         this.format = format;
         this.classe = classe;
         this.price = price;
         this.ingredients = ingredients;
+        this.setVisible(visibility);
+    }
+    /**
+     * visibility default: true
+     */
+    public Pizza(String name, Format format, Classe classe, float price, ArrayList<Ingredient> ingredients) {
+        this(name,format,classe,price,ingredients,true);
     }
 
     public String getName() {
@@ -61,5 +69,13 @@ public class Pizza {
         if(this.ingredients == null) this.ingredients = new ArrayList<Ingredient>();
         this.ingredients.add(ingredient);
     }
+    
+	public Boolean getVisible() {
+		return visible;
+	}
+	
+	public void setVisible(Boolean visible) {
+		this.visible = visible;
+	}
 
 }
