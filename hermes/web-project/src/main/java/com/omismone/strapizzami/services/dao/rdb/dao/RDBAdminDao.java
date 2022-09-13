@@ -29,11 +29,11 @@ public class RDBAdminDao implements IAdminDao{
 	}
 
 	@Override
-	public ArrayList<Admin> getAdminsByName(String name) {
+	public Admin getAdminByNameAndPassword(String name, String password) {
 		if(cache == null) getAdmins();
-		ArrayList<Admin> byname = new ArrayList<Admin>();
-		cache.forEach(admin -> {if(admin.getName().equals(name)) byname.add(admin);});
-		return byname;
+		ArrayList<Admin> result = new ArrayList<Admin>();
+		cache.forEach(admin -> {if(admin.getName().equals(name) && admin.getPass().equals(password)) result.add(admin);});
+		return result.get(0);
 	}
 	
 	private ArrayList<Admin> map(ResultSet rs){
