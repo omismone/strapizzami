@@ -3,6 +3,7 @@ package com.omismone.strapizzami.services;
 import com.omismone.strapizzami.model.Dish;
 import com.omismone.strapizzami.model.Format;
 import com.omismone.strapizzami.model.Ingredient;
+import com.omismone.strapizzami.model.Admin;
 import com.omismone.strapizzami.model.Classe;
 import com.omismone.strapizzami.model.Pizza;
 import com.omismone.strapizzami.model.Drink;
@@ -19,6 +20,8 @@ public class PersistenceFacade {
     private IDrinkDao drink_dao;
     private IDishDao dish_dao;
     private IPizzaDao pizza_dao;
+    private IAdminDao admin_dao;
+    
     private PersistenceFacade(){
         factory = PersistenceFactory.getInstance();
 
@@ -28,6 +31,7 @@ public class PersistenceFacade {
         drink_dao = factory.getDrinkDao();
         dish_dao = factory.getDishDao();
         pizza_dao = factory.getPizzaDao();
+        admin_dao = factory.getAdminDao();
     }
 
     public static PersistenceFacade getInstance(){
@@ -79,4 +83,24 @@ public class PersistenceFacade {
     	return pizza_dao.getPizzasByName(name);
     }
     
+    public ArrayList<Admin> getAdmins(){
+    	return admin_dao.getAdmins();
+    }
+    
+	public Admin getAdminByNameAndPassword(String name, String pass) {
+		return admin_dao.getAdminByNameAndPassword(name, pass);
+	}
+	
+	public Boolean insertPizza(Pizza pizza) {
+		return pizza_dao.insertPizza(pizza);
+	}
+	public Boolean insertIngredient(Ingredient ingredient) {
+		return ingredient_dao.insertIngredient(ingredient);
+	}
+	public Boolean insertClasse(Classe classe) {
+		return classe_dao.insertClasse(classe);
+	}
+	public Boolean insertFormat(Format format) {
+		return format_dao.insertFormat(format);
+	}
 }
