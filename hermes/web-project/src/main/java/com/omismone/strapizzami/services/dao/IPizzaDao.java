@@ -9,4 +9,6 @@ public interface IPizzaDao {
     public ArrayList<Pizza> getPizzas();
     public ArrayList<Pizza> getPizzasByClasse(Classe classe);
     public ArrayList<Pizza> getPizzasByName(String name);
+    
+    public Boolean insertPizza(Pizza pizza);
 }

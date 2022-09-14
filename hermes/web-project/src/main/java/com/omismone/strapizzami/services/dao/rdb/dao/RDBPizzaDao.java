@@ -97,4 +97,11 @@ public class RDBPizzaDao implements IPizzaDao {
             throw new RuntimeException(e);
         }
     }
+    
+    
+	@Override
+	public Boolean insertPizza(Pizza pizza) {
+		
+		return null;
+	}
 }
