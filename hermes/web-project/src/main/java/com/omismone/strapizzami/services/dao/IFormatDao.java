@@ -6,4 +6,5 @@ import java.util.ArrayList;
 
 public interface IFormatDao {
     public ArrayList<Format> getFormats();
+    public Boolean insertFormat(Format format);
 }
