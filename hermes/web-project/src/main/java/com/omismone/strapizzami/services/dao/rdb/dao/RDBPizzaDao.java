@@ -103,6 +103,48 @@ public class RDBPizzaDao implements IPizzaDao {
     
 	@Override
 	public Boolean insertPizza(Pizza pizza) {
-		return null;
+		if(cache == null) getPizzas();
+		if(cache.contains(pizza)) return true;
+		
+		//insert classe
+		if(!facade.insertClasse(pizza.getClasse())) return false;
+		//insert format
+		if(!facade.insertFormat(pizza.getFormat())) return false;
+		//insert ingredients
+		Boolean temp = true;
+		for(int i = 0; i < pizza.getIngredients().size(); i++) {
+			temp = Boolean.logicalAnd(temp, facade.insertIngredient(pizza.getIngredients().get(i)));
+		}
+		if(!temp) return false;
+		
+		//insert pizza's info
+		Boolean result = false;
+		Connection c;
+        try{
+        	//duplicating start and close connection cause java sometimes bugs for it
+        	
+        	//insert pizza
+            c = operator.startConnection();
+            result = operator.insertPizza(c, pizza.getName(), pizza.getClasse().getName(), pizza.getVisible());
+            operator.closeConnection(c);
+            if(!result) return false;
+
+            //insert pf
+            c = operator.startConnection();
+            result = operator.insertPF(c, pizza.getName(), pizza.getFormat().getName(), pizza.getPrice());
+            operator.closeConnection(c);
+            if(!result) return false;
+            
+            //insert pi
+    		for(int j = 0; j < pizza.getIngredients().size(); j++) {
+                c = operator.startConnection();
+                result = operator.insertPI(c, pizza.getName(), pizza.getIngredients().get(j).getName());
+                operator.closeConnection(c);
+                if(!result) return false;
+    		}
+            return true;
+        } catch (SQLException e) {
+            return false;
+        }
 	}
 }
