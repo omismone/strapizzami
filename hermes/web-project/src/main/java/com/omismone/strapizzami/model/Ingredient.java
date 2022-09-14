@@ -32,4 +32,17 @@ public class Ingredient {
         price = new_price;
     }
 
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Ingredient other = (Ingredient) obj;
+        return (other.getName().equals(this.name) && other.getFrozen().equals(this.frozen) && other.getPrice() == this.price);
+	}
 }

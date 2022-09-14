@@ -35,9 +35,7 @@ public class Admin {
         }
 
         final Admin other = (Admin) obj;
-        if(other.getName().equals(this.name) && other.getPass().equals(this.pass))
-        	return true;
-        return false;
+        return (other.getName().equals(this.name) && other.getPass().equals(this.pass));
 	}
 	
 }

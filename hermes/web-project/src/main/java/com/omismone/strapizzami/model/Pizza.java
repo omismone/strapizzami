@@ -77,5 +77,18 @@ public class Pizza {
 	public void setVisible(Boolean visible) {
 		this.visible = visible;
 	}
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Pizza other = (Pizza) obj;
+        return (other.getName().equals(this.name) && other.getClasse().equals(this.classe) && this.format.equals(other.getFormat()) && this.price == other.getPrice() && this.visible.equals(other.getVisible()) && this.ingredients.size() == other.getIngredients().size() && this.ingredients.containsAll(other.getIngredients()));
+	}
 
 }

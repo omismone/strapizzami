@@ -44,4 +44,17 @@ public class Drink {
     public void setPrice(float price) {
         this.price = price;
     }
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Drink other = (Drink) obj;
+        return (other.getName().equals(this.name) && other.getFormat().equals(this.format) && other.getQuantity() == this.quantity && other.getPrice() == this.price);
+	}
 }

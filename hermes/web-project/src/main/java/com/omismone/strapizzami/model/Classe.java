@@ -20,4 +20,18 @@ public class Classe {
     public Integer getRelevance() {
         return relevance;
     }
+    
+	@Override
+	public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Classe other = (Classe) obj;
+        return (other.getName().equals(this.name) && other.getDescription().equals(this.description) && other.getRelevance() == this.relevance);
+	}
 }
