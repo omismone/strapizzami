@@ -16,6 +16,7 @@ public class PersistenceFactory {
     private IDrinkDao drink_dao;
     private IDishDao dish_dao;
     private IPizzaDao pizza_dao;
+    private IAdminDao admin_dao;
 
     private PersistenceFactory(){
         format_dao = new RDBFormatDao();
@@ -24,6 +25,7 @@ public class PersistenceFactory {
         drink_dao = new RDBDrinkDao();
         dish_dao = new RDBDishDao();
         pizza_dao = new RDBPizzaDao();
+        admin_dao = new RDBAdminDao();
     }
     public static PersistenceFactory getInstance(){
         if(singleton == null) singleton = new PersistenceFactory();
@@ -53,4 +55,8 @@ public class PersistenceFactory {
     public IPizzaDao getPizzaDao(){
         return pizza_dao;
     }
+    public IAdminDao getAdminDao() {
+    	return admin_dao;
+    }
+    
 }
