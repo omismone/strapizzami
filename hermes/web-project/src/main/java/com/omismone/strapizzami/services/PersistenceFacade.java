@@ -90,16 +90,27 @@ public class PersistenceFacade {
 	public Admin getAdminByNameAndPassword(String name, String pass) {
 		return admin_dao.getAdminByNameAndPassword(name, pass);
 	}
-	
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
 	public Boolean insertPizza(Pizza pizza) {
 		return pizza_dao.insertPizza(pizza);
 	}
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
 	public Boolean insertIngredient(Ingredient ingredient) {
 		return ingredient_dao.insertIngredient(ingredient);
 	}
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
 	public Boolean insertClasse(Classe classe) {
 		return classe_dao.insertClasse(classe);
 	}
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
 	public Boolean insertFormat(Format format) {
 		return format_dao.insertFormat(format);
 	}
