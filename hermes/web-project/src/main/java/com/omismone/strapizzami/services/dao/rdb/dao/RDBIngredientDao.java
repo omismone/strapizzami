@@ -44,4 +44,22 @@ public class RDBIngredientDao implements IIngredientDao {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
+	@Override
+	public Boolean insertIngredient(Ingredient ingredient) {
+		if(cache == null) getIngredients();
+		if(cache.contains(ingredient)) return true;
+		Boolean result = false;
+        try{
+            Connection c = operator.startConnection();
+            result = operator.insertIngredient(c, ingredient.getName(), ingredient.getFrozen(), ingredient.getPrice());
+            operator.closeConnection(c);
+            return result;
+        } catch (SQLException e) {
+            return false;
+        }
+	}
 }

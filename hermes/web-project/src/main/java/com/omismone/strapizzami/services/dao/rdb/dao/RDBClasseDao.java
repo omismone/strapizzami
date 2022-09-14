@@ -56,4 +56,22 @@ public class RDBClasseDao implements IClasseDao {
         }
 
     }
+
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
+	@Override
+	public Boolean insertClasse(Classe classe) {
+		if(cache == null) getClassi();
+		if(cache.contains(classe)) return true;
+		Boolean result = false;
+        try{
+            Connection c = operator.startConnection();
+            result = operator.insertClasse(c, classe.getName(), classe.getDescription(), classe.getRelevance().intValue());
+            operator.closeConnection(c);
+            return result;
+        } catch (SQLException e) {
+            return false;
+        }
+	}
 }

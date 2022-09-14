@@ -40,4 +40,21 @@ public class RDBFormatDao implements IFormatDao {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * @return true if the supplied input is now present (if it already existed also true)
+     */
+	@Override
+	public Boolean insertFormat(Format format) {
+		if(cache == null) getFormats();
+		if(cache.contains(format)) return true;
+		Boolean result = false;
+        try{
+            Connection c = operator.startConnection();
+            result = operator.insertFormat(c, format.getName());
+            operator.closeConnection(c);
+            return result;
+        } catch (SQLException e) {
+            return false;
+        }
+	}
 }

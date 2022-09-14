@@ -15,10 +15,12 @@ import java.util.ArrayList;
 
 public class RDBPizzaDao implements IPizzaDao {
     private RDBOperator operator;
+    private PersistenceFacade facade;
     private ArrayList<Pizza> cache;
 
     public RDBPizzaDao(){
         operator = RDBOperator.getInstance();
+        facade = PersistenceFacade.getInstance();
     }
     @Override
     public ArrayList<Pizza> getPizzas() {
@@ -69,12 +71,12 @@ public class RDBPizzaDao implements IPizzaDao {
 
                 //get from persistence facade all classes and add the right one to the current dish
                 String classe_name = pizzas.getString("CLASSE");
-                PersistenceFacade.getInstance().getClassi().forEach(clazz -> {if(clazz.getName().equals(classe_name)) current_pizza.setClasse(clazz);});
+                facade.getClassi().forEach(clazz -> {if(clazz.getName().equals(classe_name)) current_pizza.setClasse(clazz);});
 
                 partial_result.add(current_pizza);
             }
             //get from persistence facade all ingredients
-            ArrayList<Ingredient> tot_ingredients = PersistenceFacade.getInstance().getIngredients();
+            ArrayList<Ingredient> tot_ingredients = facade.getIngredients();
             while(pis.next()){
                 String pizza_name = pis.getString("PIZZA");
                 String ingredient_name = pis.getString("INGREDIENTE");
@@ -83,7 +85,7 @@ public class RDBPizzaDao implements IPizzaDao {
                 partial_result.forEach(pizza -> { if(pizza.getName().equals(pizza_name)) tot_ingredients.forEach(ingredient -> {if(ingredient.getName().equals(ingredient_name)) pizza.addIngredient(ingredient);}); });
             }
             //get from persistence facade all formats
-            ArrayList<Format> tot_formats = PersistenceFacade.getInstance().getFormats();
+            ArrayList<Format> tot_formats = facade.getFormats();
             while(pfs.next()){
                 String pizza_name = pfs.getString("PIZZA");
                 String format_name = pfs.getString("FORMATO");
@@ -101,7 +103,6 @@ public class RDBPizzaDao implements IPizzaDao {
     
 	@Override
 	public Boolean insertPizza(Pizza pizza) {
-		
 		return null;
 	}
 }

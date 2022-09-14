@@ -326,4 +326,20 @@ public class RDBOperator {
         }
         catch (SQLException e) { return false; }
     }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean insertFormat(Connection connection, String name){
+        try {
+        	PreparedStatement statement;
+            String query = "insert into formato(NOME) values (?);";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, name);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
 }
