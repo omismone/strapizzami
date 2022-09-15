@@ -31,16 +31,17 @@ public class RDBAdminDao implements IAdminDao{
 	@Override
 	public Admin getAdminByNameAndPassword(String name, String password) {
 		if(cache == null) getAdmins();
+		if(cache == null) return null;
 		ArrayList<Admin> result = new ArrayList<Admin>();
 		cache.forEach(admin -> {if(admin.getName().equals(name) && admin.getPass().equals(password)) result.add(admin);});
-		return result.get(0);
+		return result.size() == 0 ? null : result.get(0);
 	}
 	
 	private ArrayList<Admin> map(ResultSet rs){
 		ArrayList<Admin> result = new ArrayList<Admin>();
         try{
             while(rs.next()){
-                String name = rs.getString("NOME");
+                String name = rs.getString("USERNAME");
                 String pass = rs.getString("PASSWORD");
 
                 result.add(new Admin(name,pass));
