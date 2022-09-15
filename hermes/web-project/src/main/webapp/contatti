@@ -157,13 +157,10 @@
         </div>
         <div id="footer" style="min-height: fit-content; position: relative; bottom: 0;">
             <footer class="bg-dark text-center text-white">
-                <b class="fs-5" >strapizzami</b>
-                    <br>
-                <i style="font-size: 0.7em; ">strapizzami.travaco.web.app@gmail.com</i>
-                    <br>
-                <i style="font-size: 0.7em;">+39 338 169 7359</i>
-                    <br>
-                <div style="background-color: rgba(0, 0, 0, 0.2);"><i style="font-size: 0.75em;">Copyright © 2019-2022, pizzeriastrapizzami.com</i></div>
+                <b class="fs-5" >strapizzami</b> 
+                <i style="font-size: 0.7em; display: block;">+39 338 169 7359</i>
+                <i style="font-size: 0.6em; color: lightgray;">sei dello staff? <a href="/login">accedi</a></i>
+                <div style="background-color: rgba(0, 0, 0, 0.2); display: block;"><i style="font-size: 0.75em;">Copyright © 2019-2022, pizzeriastrapizzami.com</i></div>
             </footer>
         </div>
         <!-- Footer -->
