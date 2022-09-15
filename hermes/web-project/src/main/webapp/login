@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="title">Accedi | Strapizzami</title>
+    <link rel="icon" type="image/x-icon" href="/assets/logo1024.png">
+    <!--Google positioning-->
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Strapizzami di Travacò Siccomario, Pavia apre le sue porte e ti accoglie nel suo personalissimo sito web! Esplora il nostro ricco menù, informati sulle nostre novità e molto altro! Strapizzami è un Ristorante / Pizzeria situato a Travacò siccomario in provincia di Pavia. Che aspetti? Vieni a trovarci! Siamo in via Marconi 64, Travacò sicc. (PV); Oppure ordina direttamente da casa tua, consegnamo anche a San Martino Siccomario e frazioni vicine!"/>
+    <meta name="keywords" content="Pizzeria, Pavia, Ristorante, Travacò siccomario"/>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!--Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!--Css-->
+    <style>
+        *{
+            font-family: 'Catamaran', sans-serif;
+            --brown: #662424;
+            --red: #E82C34;
+            --green: #2E8B57;
+            --gray: #F8F9FA;
+        }
+        @media screen and (min-width: 600px) {
+            .striscia {
+                width:40vw; 
+                margin-left: 30vw;
+            }
+        }
+        @media screen and (max-width: 599px) {
+            .striscia {
+                width:80vw; 
+                margin-left: 10%;
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <div id="all">
+        <div id="navbar" style="min-height: 10vh;">
+            <nav class="navbar bg-light fixed-top">
+                <div class="container-fluid">
+                    
+                    <a class="navbar-brand fs-4" style="margin-right: 5vw;  font-weight: 800; color: var(--brown);" href="/home">
+                        <img src="assets/logo1024.png" alt="" width="30" height="30" class="d-inline-block align-text-top">Strapizzami</img>
+                    </a>
+                    <button class="navbar-toggler" style=" border: none; box-shadow: none;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="assets/list.svg" width="30" height="30" class="d-inline-block"></img>
+                    </button>
+                    <div class="collapse navbar-collapse fs-5" style="align-items: center; text-align: center;" id="navbarNav">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/menu">Menù</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contatti">Contatti</a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!--BODY CONTENT-->
+        <div style="height: fit-content;color:var(--brown); font-weight: 600;">
+            <br><br><br><br>
+            <img class="striscia" src="assets/striscia.png" />
+            <!-- Section: Design Block -->
+            <section style="text-align: center;">
+                <div class="card-body py-5 px-md-5">
+                    <form action="/evaluatelogin" method="post">
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="username" id="form2Example1" class="form-control" style="text-align: center; width: 80%; margin-left:10%;" />
+                        <label class="form-label" for="form2Example1">username</label>
+                    </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form2Example2" class="form-control" style="text-align: center;width: 80%; margin-left:10%;" />
+                        <label class="form-label" for="form2Example2">password</label>
+                    </div>
+                    <!-- Submit button -->
+                    <input type="submit" class="btn btn-danger btn-block mb-4" value="accedi"></button>
+                    </form>
+                </div>
+            </section>
+            <br><br><br>
+            <!-- Section: Design Block -->
+        </div>
+        <!--/BODY CONTENT-->
+
+        <!-- Footer -->
+        <div style="text-align: center;">
+            <img src="assets/strapizzamiCar.gif" alt="" width="300em" height="auto" class="d-inline-block"></img>
+        </div>
+        <div id="footer" style="min-height: fit-content; position: relative; bottom: 0;">
+            <footer class="bg-dark text-center text-white">
+                <b class="fs-5" >strapizzami</b> 
+                <i style="font-size: 0.7em; display: block;">+39 338 169 7359</i>
+                <div style="background-color: rgba(0, 0, 0, 0.2); display: block;"><i style="font-size: 0.75em;">Copyright © 2019-2022, pizzeriastrapizzami.com</i></div>
+            </footer>
+        </div>
+        <!-- Footer -->
+    </div>
+
+    <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  </body>
+</html>
