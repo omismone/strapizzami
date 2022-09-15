@@ -20,7 +20,6 @@ public class RDBPizzaDao implements IPizzaDao {
 
     public RDBPizzaDao(){
         operator = RDBOperator.getInstance();
-        facade = PersistenceFacade.getInstance();
     }
     @Override
     public ArrayList<Pizza> getPizzas() {
@@ -62,6 +61,7 @@ public class RDBPizzaDao implements IPizzaDao {
      * this method calls PersistenceFacade to get the ingredients, classes and formats list
      */
     private ArrayList<Pizza> map(ResultSet pizzas, ResultSet pis, ResultSet pfs){
+        facade = PersistenceFacade.getInstance();
         ArrayList<Pizza> result = new ArrayList<Pizza>();
         //partial result contains all pizzas skeleton(without format and price that are on pfs), result duplicate those pizzas for each pizza's format in pfs
         ArrayList<Pizza> partial_result = new ArrayList<Pizza>();
@@ -103,6 +103,7 @@ public class RDBPizzaDao implements IPizzaDao {
     
 	@Override
 	public Boolean insertPizza(Pizza pizza) {
+        facade = PersistenceFacade.getInstance();
 		if(cache == null) getPizzas();
 		if(cache.contains(pizza)) return true;
 		
