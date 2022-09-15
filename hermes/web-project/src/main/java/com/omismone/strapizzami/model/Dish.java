@@ -73,6 +73,13 @@ public class Dish {
         }
 
         final Dish other = (Dish) obj;
-        return (other.getName().equals(this.name) && other.getClasse().equals(this.classe) && other.getFrozen().equals(this.getFrozen()) && other.getPrice() == this.price && this.ingredients.size() == other.getIngredients().size() && other.getIngredients().containsAll(this.ingredients));
+        return (compare(other.getName(),this.name) && compare(other.getClasse(),this.classe) && compare(other.getFrozen(),this.frozen) && compare(other.getPrice(),this.price) && ((this.ingredients == null && other.getIngredients() == null) || this.ingredients.size() == other.getIngredients().size() && other.getIngredients().containsAll(this.ingredients)));
+	}
+	
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
 	}
 }

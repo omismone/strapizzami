@@ -43,6 +43,13 @@ public class Ingredient {
         }
 
         final Ingredient other = (Ingredient) obj;
-        return (other.getName().equals(this.name) && other.getFrozen().equals(this.frozen) && other.getPrice() == this.price);
+        return (compare(this.name,other.getName()) && compare(this.frozen,other.getFrozen()) && compare(this.price,other.getPrice()));
+	}
+	
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
 	}
 }

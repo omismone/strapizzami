@@ -88,7 +88,13 @@ public class Pizza {
         }
 
         final Pizza other = (Pizza) obj;
-        return (other.getName().equals(this.name) && other.getClasse().equals(this.classe) && this.format.equals(other.getFormat()) && this.price == other.getPrice() && this.visible.equals(other.getVisible()) && this.ingredients.size() == other.getIngredients().size() && this.ingredients.containsAll(other.getIngredients()));
+        return (compare(other.getName(),this.name) && compare(other.getClasse(),this.classe) && compare(other.getFormat(),this.format) && compare(other.getPrice(),this.price) && compare(other.getVisible(),this.visible) && ((this.ingredients == null && other.getIngredients() == null) || this.ingredients.size() == other.getIngredients().size() && other.getIngredients().containsAll(this.ingredients)));
 	}
 
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
+	}
 }

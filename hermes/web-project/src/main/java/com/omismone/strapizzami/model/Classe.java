@@ -32,6 +32,13 @@ public class Classe {
         }
 
         final Classe other = (Classe) obj;
-        return (other.getName().equals(this.name) && other.getDescription().equals(this.description) && other.getRelevance() == this.relevance);
+        return (compare(this.name, other.getName()) && compare(this.description,other.getDescription()) && compare(this.relevance,other.getRelevance()));
+	}
+	
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
 	}
 }

@@ -35,7 +35,14 @@ public class Admin {
         }
 
         final Admin other = (Admin) obj;
-        return (other.getName().equals(this.name) && other.getPass().equals(this.pass));
+        return (compare(this.name,other.getName()) && compare(this.pass,other.getPass()));
+	}
+	
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
 	}
 	
 }

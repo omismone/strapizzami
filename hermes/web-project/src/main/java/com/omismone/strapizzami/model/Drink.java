@@ -55,6 +55,13 @@ public class Drink {
         }
 
         final Drink other = (Drink) obj;
-        return (other.getName().equals(this.name) && other.getFormat().equals(this.format) && other.getQuantity() == this.quantity && other.getPrice() == this.price);
+        return (compare(this.name,other.getName()) && compare(this.format,other.getFormat()) && compare(this.quantity,other.getQuantity()) && compare(this.price,other.getPrice()));
+	}
+	
+	/**
+	 * @return true if o1.equals(o2) is true OR both are null.
+	 */
+	private boolean compare(Object o1, Object o2) {
+		return ((o1 == null && o2 == null) || o1.equals(o2));
 	}
 }

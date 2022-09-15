@@ -20,6 +20,6 @@ public class Format {
         }
 
         final Format other = (Format) obj;
-        return other.getName().equals(this.name);
+        return ((other.getName() == null && this.name == null) || other.getName().equals(this.name));
 	}
 }
