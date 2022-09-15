@@ -74,15 +74,15 @@
             <!-- Section: Design Block -->
             <section style="text-align: center;">
                 <div class="card-body py-5 px-md-5">
-                    <form action="/evaluatelogin" method="post">
+                    <form action="/amministrazione" method="post">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
-                        <input type="username" id="form2Example1" class="form-control" style="text-align: center; width: 80%; margin-left:10%;" />
+                        <input type="username" name="username" id="form2Example1" class="form-control" style="text-align: center; width: 80%; margin-left:10%;" />
                         <label class="form-label" for="form2Example1">username</label>
                     </div>
                     <!-- Password input -->
                     <div class="form-outline mb-4">
-                        <input type="password" id="form2Example2" class="form-control" style="text-align: center;width: 80%; margin-left:10%;" />
+                        <input type="password" name="password" id="form2Example2" class="form-control" style="text-align: center;width: 80%; margin-left:10%;" />
                         <label class="form-label" for="form2Example2">password</label>
                     </div>
                     <!-- Submit button -->
