@@ -4,7 +4,7 @@ config.properties
 build/
 .classpath
 .project
-
+PassChiper.java
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,linux,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,linux,java
 
