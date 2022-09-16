@@ -51,7 +51,19 @@ public class amministrazione extends HttpServlet {
 	    }
 	    
 	    //credenziali corrette
-	    out.print(AdminController.getInstance().getAdminPage());
+	    String name=request.getParameter("name");  
+	    String price=request.getParameter("price");
+	    String[] ingredients=request.getParameterValues("ingredients");
+	    
+	    //want to insert a new pizza
+	    if(name != null && price != null && ingredients != null && ingredients.length != 0) {
+	    	contr.insertWeeklyPizza(name, Float.parseFloat(price), ingredients);
+	    	out.print("<html><head></head><body>inserita</body></html>");
+	    	out.close();
+	    	return;
+	    }
+
+	    out.print(contr.getAdminPage());
 	    
 	    out.close();   
 		
