@@ -67,7 +67,7 @@ public class RDBPizzaDao implements IPizzaDao {
         ArrayList<Pizza> partial_result = new ArrayList<Pizza>();
         try{
             while(pizzas.next()){
-                Pizza current_pizza = new Pizza(pizzas.getString("NOME"),null,null,0, null);
+                Pizza current_pizza = new Pizza(pizzas.getString("NOME"),null,null,0, null,(Boolean)pizzas.getObject("VISIBILE"));
 
                 //get from persistence facade all classes and add the right one to the current dish
                 String classe_name = pizzas.getString("CLASSE");
@@ -92,7 +92,7 @@ public class RDBPizzaDao implements IPizzaDao {
                 float price = pfs.getBigDecimal("PREZZO").floatValue();
 
                 //insert in result the pizza, getting info from partial result and pfs
-                partial_result.forEach(pizza -> { if(pizza.getName().equals(pizza_name)) tot_formats.forEach(format -> {if(format.getName().equals(format_name)) result.add(new Pizza(pizza.getName(), format, pizza.getClasse(), price, pizza.getIngredients()));}); });
+                partial_result.forEach(pizza -> { if(pizza.getName().equals(pizza_name)) tot_formats.forEach(format -> {if(format.getName().equals(format_name)) result.add(new Pizza(pizza.getName(), format, pizza.getClasse(), price, pizza.getIngredients(), pizza.getVisible()));}); });
             }
             return result;
         } catch (SQLException e) {
