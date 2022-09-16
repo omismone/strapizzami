@@ -53,12 +53,29 @@ public class amministrazione extends HttpServlet {
 	    //credenziali corrette
 	    String name=request.getParameter("name");  
 	    String price=request.getParameter("price");
-	    String[] ingredients=request.getParameterValues("ingredients");
+	    String[] ingredients_name=request.getParameterValues("ingredientsName");
+	    String[] ingredients_price=request.getParameterValues("ingredientsPrice");
 	    
 	    //want to insert a new pizza
-	    if(name != null && price != null && ingredients != null && ingredients.length != 0) {
-	    	contr.insertWeeklyPizza(name, Float.parseFloat(price), ingredients);
-	    	out.print("<html><head></head><body>inserita</body></html>");
+	    if(name != null && price != null && ingredients_name != null && ingredients_name.length != 0) {
+	    	
+    		//se c'è un parametro ingredientFrozen2 significa che il secondo ingrediente è surgelato!
+		    Boolean[] ingredients_frozen = new Boolean[ingredients_name.length];
+	    	for(int k = 0; k< ingredients_name.length; k++) {
+	    		ingredients_frozen[k] = request.getParameterValues("ingredientsFrozen" + k) == null ? false : true;
+	    	}
+	    	
+	    	if(contr.insertWeeklyPizza(name, Float.parseFloat(price), ingredients_name, ingredients_price, ingredients_frozen))
+	    	{
+		    	out.print("<html><head>");
+		    	out.println("<script type=\"text/javascript\">alert('Inserimento avvenuto!\\nPotrebbe essere necessaria qualche ora prima che la modifica sia applicata ovunque.');</script>");
+		    	out.print("<meta http-equiv=\"refresh\" content=\"0;URL=/home\"></head><body></body></html>");
+	    	}
+	    	else {
+		    	out.print("<html><head>");
+		    	out.println("<script type=\"text/javascript\">alert('Inserimento fallito!\\nVerificare che le informazioni inserite siano valide e riprovare.');</script>");
+		    	out.print("<meta http-equiv=\"refresh\" content=\"0;URL=/login\"></head><body></body></html>");
+	    	}
 	    	out.close();
 	    	return;
 	    }

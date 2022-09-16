@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.omismone.strapizzami.controller.utils.IPassChiper;
 import com.omismone.strapizzami.controller.utils.PassChiper;
 import com.omismone.strapizzami.model.Classe;
+import com.omismone.strapizzami.model.Format;
+import com.omismone.strapizzami.model.Ingredient;
 import com.omismone.strapizzami.model.Pizza;
 import com.omismone.strapizzami.services.PersistenceFacade; 					//comment this line
 // import com.omismone.strapizzami.controller.utils.PassChiperSample; 			//decomment this line
@@ -14,6 +16,7 @@ public class AdminController {
 	
 	private IPassChiper pc;
 	private PersistenceFacade pf;
+	
 	
 	private AdminController() {
 		pc = PassChiper.getInstance(); 						//comment this line
@@ -33,10 +36,26 @@ public class AdminController {
 		return false;
 	}
 	
-	public Boolean insertWeeklyPizza(String pizza_name, float price, String[] ingredients_name) {
-		return false;
+	public Boolean insertWeeklyPizza(String pizza_name, float price, String[] ingredients_name, String[] ingredients_price, Boolean[] ingredients_frozen) {
+		
+		//get classe della pizza della settimana  
+		Classe classe_settimana = null;
+		for(int j = 0; j < PersistenceFacade.getInstance().getClassi().size(); j++) {
+			if(PersistenceFacade.getInstance().getClassi().get(j).getName().contains("ettimana"))
+				classe_settimana = PersistenceFacade.getInstance().getClassi().get(j);
+		}
+		if(classe_settimana == null) return false; // non c'è la classe pizza della settimana
+		
+		//getIngredients
+		ArrayList<Ingredient> ingredienti = new ArrayList<Ingredient>();
+		for(int i = 0; i< ingredients_name.length; i++) {
+			ingredienti.add(new Ingredient(ingredients_name[i],ingredients_frozen[i],Float.parseFloat(ingredients_price[i])));
+		}
+		
+		Pizza weekly = new Pizza(pizza_name, new Format("normal"), classe_settimana, price ,ingredienti, true);
+		return pf.insertPizza(weekly);
+		//need to hide actual weekly pizza
 	}
-	
 	public String getAdminPage() {
 		String html = "";
 		html += "<!doctype html>\n"
@@ -316,20 +335,56 @@ public class AdminController {
 				+ "\n"
 				+ "				$field = document.createElement('input');\n"
 				+ "                $field.style.display = \"block\";\n"
+				+ "				$field.name = 'ingredientsName';\n"
 				+ "                $field.style.margin = \"auto\";\n"
-				+ "				$field.name = 'ingredients';\n"
+				+ "                $field.style.marginTop = \"8%\";\n"
 				+ "				$field.type = 'text';\n"
 				+ "                $field.placeholder = \"nome ingrediente\";\n"
 				+ "                $field.style.textAlign = \"center\";\n"
 				+ "                $field.required = true;\n"
 				+ "				$item.appendChild($field);\n"
 				+ "\n"
+				+ "                $field3 = document.createElement('div');\n"
+				+ "                $field3.style.display = \"block\";\n"
+				+ "                $field3.display = \"flex\";\n"
+				+ "                $field3.flexFlow = \"column nowrap\";\n"
+				+ "                \n"
+				+ "				$field4 = document.createElement('input');\n"
+				+ "                $field4.style.display = \"block\";\n"
+				+ "				$field4.name = 'ingredientsPrice';\n"
+				+ "                $field4.style.margin = \"auto\";\n"
+				+ "                $field4.style.marginTop = \"3%\";\n"
+				+ "				$field4.type = 'number';\n"
+				+ "                $field4.step = \"0.5\";\n"
+				+ "                $field4.placeholder = \"prezzo di aggiunta\";\n"
+				+ "                $field4.style.textAlign = \"center\";\n"
+				+ "                $field4.required = true;\n"
+				+ "				$field3.appendChild($field4);\n"
+				+ "\n"
+				+ "                $field1 = document.createElement('input');\n"
+				+ "                $field1.style.display = \"block\";\n"
+				+ "                $field1.style.marginTop = \"4%\";\n"
+				+ "				$field1.name = 'ingredientsFrozen' + $i;\n"
+				+ "				$field1.type = 'checkbox';\n"
+				+ "                $field1.style.margin = \"auto\";\n"
+				+ "                $field1.style.marginTop = \"3%\";\n"
+				+ "                $field1.value = \"surgelato\";\n"
+				+ "				$field3.appendChild($field1);\n"
+				+ "\n"
+				+ "                $field2 = document.createElement('span');\n"
+				+ "                $field2.style.display = \"block\";\n"
+				+ "                $field2.textContent = \"surgelato\";\n"
+				+ "                $field2.style.color = \"var(--darkgray)\";\n"
+				+ "                $field3.appendChild($field2);\n"
+				+ "\n"
+				+ "                $item.appendChild($field3);\n"
+				+ "\n"
 				+ "				$container.appendChild($item);\n"
 				+ "			}\n"
 				+ "		}\n"
 				+ "        \n"
 				+ "\n"
-				+ "	</script>\n"
+				+ "	</script>"
 				+ "  </body>\n"
 				+ "</html>";
 		return html;
