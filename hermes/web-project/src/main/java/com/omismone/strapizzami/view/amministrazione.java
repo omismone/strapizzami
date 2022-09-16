@@ -51,9 +51,7 @@ public class amministrazione extends HttpServlet {
 	    }
 	    
 	    //credenziali corrette
-	    out.print("<html><head></head><body>");
-	    out.println("<h1>DENTROO</h1>");
-	    out.print("</body></html>");
+	    out.print(AdminController.getInstance().getAdminPage());
 	    
 	    out.close();   
 		
