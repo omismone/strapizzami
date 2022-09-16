@@ -2,7 +2,6 @@ package com.omismone.strapizzami.services.dao.rdb;
 
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Properties;
 
@@ -267,11 +266,11 @@ public class RDBOperator {
 			statement = connection.prepareStatement(query);
 			statement.setString(1, name);
 			statement.setInt(2, frozen ? 1 : 0);
-			statement.setBigDecimal(3, new BigDecimal(String.format("%.2f", price)));
+			statement.setFloat(3,price);
 			statement.executeUpdate();
 			return true;
         }
-        catch (SQLException e) { return false; }
+        catch (SQLException e) { e.printStackTrace(); return null; }
     }
     /**
      * call startConnection() before this method!
@@ -300,7 +299,7 @@ public class RDBOperator {
         	PreparedStatement statement;
             String query = "insert into pf(PREZZO,PIZZA,FORMATO) values (?,?,?);";
 			statement = connection.prepareStatement(query);
-			statement.setBigDecimal(1, new BigDecimal(String.format("%.2f", price)));
+			statement.setFloat(1,price);
 			statement.setString(2, pizza_name);
 			statement.setString(3, format_name);
 			statement.executeUpdate();
