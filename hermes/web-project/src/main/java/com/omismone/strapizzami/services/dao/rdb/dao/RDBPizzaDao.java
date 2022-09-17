@@ -124,6 +124,14 @@ public class RDBPizzaDao implements IPizzaDao {
         try{
         	//duplicating start and close connection cause java sometimes bugs for it
         	
+        	//hiding past weekly if inserting a weekly pizza
+        	if(pizza.getClasse().getName().contains("ettimana")) {
+                c = operator.startConnection();
+                Boolean res = operator.hideAllWeeklyPizza(c);
+                operator.closeConnection(c);
+                if(!res) return false;
+        	}
+        	
         	//insert pizza
             c = operator.startConnection();
             result = operator.insertPizza(c, pizza.getName(), pizza.getClasse().getName(), pizza.getVisible());

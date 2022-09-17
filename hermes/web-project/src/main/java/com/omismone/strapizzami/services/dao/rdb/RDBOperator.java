@@ -341,4 +341,37 @@ public class RDBOperator {
         }
         catch (SQLException e) { return false; }
     }
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean hideAllWeeklyPizza(Connection connection){
+        try {
+            String query = "update thoth.pizza set VISIBILE = 0 where pizza.CLASSE LIKE '%ettimana%';";
+            Statement statement;
+
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
+    
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean showPizza(Connection connection, String pizza_name){
+        try {
+        	PreparedStatement statement;
+            String query = "update thoth.pizza set VISIBILE = 1 where pizza.NOME = '?';";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, pizza_name);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
 }
