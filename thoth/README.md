@@ -16,4 +16,6 @@ _Note_: to run a file on cmd mysql do:  `mysql> source file.sql;`
 _Note2_: to create a user on mysql do:
  
 1. _CREATE USER 'hermes'@'localhost' IDENTIFIED BY 'yourPassword';_  
-1. _GRANT SELECT, INSERT, DELETE, UPDATE ON thoth.* TO 'hermes'@'localhost' WITH GRANT OPTION;_
+1. _GRANT SELECT, INSERT, DELETE, UPDATE ON thoth.* TO 'hermes'@'localhost' WITH GRANT OPTION;_  
+
+_Note3_: __convention adopted__ -> € > 100 on ingrediente.PREZZO means NULL! java and mysql treat NULL like 0, hence this convention..  
