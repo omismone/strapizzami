@@ -11,7 +11,7 @@ public class Pizza {
     private Boolean visible;
 
     public Pizza(String name, Format format, Classe classe, float price, ArrayList<Ingredient> ingredients, Boolean visibility) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.format = format;
         this.classe = classe;
         this.price = price;
@@ -30,7 +30,7 @@ public class Pizza {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public Format getFormat() {
