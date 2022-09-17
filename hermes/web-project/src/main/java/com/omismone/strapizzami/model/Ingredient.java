@@ -3,9 +3,9 @@ package com.omismone.strapizzami.model;
 public class Ingredient {
     private String name;
     private Boolean frozen;
-    private float price;
+    private Float price;
 
-    public Ingredient(String name, Boolean frozen, float price){
+    public Ingredient(String name, Boolean frozen, Float price){
         this.name = name == null ? null : name.toLowerCase();
         this.frozen = frozen;
         this.price = price;
@@ -25,10 +25,10 @@ public class Ingredient {
         frozen = new_frozen;
     }
 
-    public float getPrice(){
+    public Float getPrice(){
         return price;
     }
-    public void setPrice(float new_price){
+    public void setPrice(Float new_price){
         price = new_price;
     }
 

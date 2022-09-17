@@ -37,7 +37,7 @@ public class RDBIngredientDao implements IIngredientDao {
                 Boolean frozen = (Boolean) rs.getObject("SURGELATO");
                 Float price = rs.getFloat("PREZZO");
 
-                result.add(new Ingredient(name, frozen, price));
+                result.add(new Ingredient(name, frozen, price > 100 ? null : price));
             }
             return result;
         } catch (SQLException e) {
@@ -55,7 +55,7 @@ public class RDBIngredientDao implements IIngredientDao {
 		Boolean result = false;
         try{
             Connection c = operator.startConnection();
-            result = operator.insertIngredient(c, ingredient.getName(), ingredient.getFrozen(), ingredient.getPrice());
+            result = operator.insertIngredient(c, ingredient.getName(), ingredient.getFrozen(), ingredient.getPrice() == null ? (float)(1000) : ingredient.getPrice());
             operator.closeConnection(c);
             return result;
         } catch (SQLException e) {
