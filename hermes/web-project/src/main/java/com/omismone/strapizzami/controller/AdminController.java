@@ -37,7 +37,8 @@ public class AdminController {
 	}
 	
 	public Boolean insertWeeklyPizza(String pizza_name, float price, String[] ingredients_name, String[] ingredients_price, Boolean[] ingredients_frozen) {
-		
+		// se c'è un carattere non valido annulla
+		if(pizza_name.contains("/") || pizza_name.contains("'") || pizza_name.contains("\"")|| pizza_name.contains("`") ) return false;
 		//get classe della pizza della settimana  
 		Classe classe_settimana = null;
 		for(int j = 0; j < PersistenceFacade.getInstance().getClassi().size(); j++) {
@@ -49,6 +50,9 @@ public class AdminController {
 		//getIngredients
 		ArrayList<Ingredient> ingredienti = new ArrayList<Ingredient>();
 		for(int i = 0; i< ingredients_name.length; i++) {
+			// se c'è un carattere non valido annulla
+			if(ingredients_name[i].contains("/") || ingredients_name[i].contains("'") || ingredients_name[i].contains("\"")|| ingredients_name[i].contains("`") ) return false;
+			
 			ingredienti.add(new Ingredient(ingredients_name[i],ingredients_frozen[i],Float.parseFloat(ingredients_price[i])));
 		}
 		
