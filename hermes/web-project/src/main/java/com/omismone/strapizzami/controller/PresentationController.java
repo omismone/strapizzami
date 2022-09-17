@@ -209,6 +209,12 @@ public class PresentationController {
 			for(int i = 0; i<classi.size(); i++) {
 				ArrayList<Pizza> pizzas = pf.getPizzasByClasse(classi.get(i));
 				if(pizzas != null && pizzas.size() != 0) {
+					//se sono tutte invisibili
+					Boolean all_invisible = true;
+					for(Pizza p : pizzas) {
+						if(p.getVisible()) all_invisible = false;
+					}
+					if(all_invisible) continue;
 					content += getClasseHtmlRepr(classi.get(i).getName(), classi.get(i).getDescription());
 					//print formats
 					ArrayList<String> formats = new ArrayList<String>();

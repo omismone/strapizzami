@@ -114,7 +114,8 @@ public class RDBPizzaDao implements IPizzaDao {
 		//insert ingredients
 		Boolean temp = true;
 		for(int i = 0; i < pizza.getIngredients().size(); i++) {
-			temp = Boolean.logicalAnd(temp, facade.insertIngredient(pizza.getIngredients().get(i)));
+			Boolean tmp = facade.insertIngredient(pizza.getIngredients().get(i));
+			temp = Boolean.logicalAnd(temp, tmp == null ? true : tmp);
 		}
 		if(!temp) return false;
 		

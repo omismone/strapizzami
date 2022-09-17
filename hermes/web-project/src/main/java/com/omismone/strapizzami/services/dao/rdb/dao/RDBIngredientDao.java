@@ -50,7 +50,7 @@ public class RDBIngredientDao implements IIngredientDao {
      */
 	@Override
 	public Boolean insertIngredient(Ingredient ingredient) {
-		if(cache == null) getIngredients();
+		getIngredients();
 		if(cache.contains(ingredient)) return true;
 		Boolean result = false;
         try{
