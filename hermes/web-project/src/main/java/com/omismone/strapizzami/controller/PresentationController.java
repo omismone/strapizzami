@@ -2,16 +2,19 @@ package com.omismone.strapizzami.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import com.omismone.strapizzami.model.Classe;
 import com.omismone.strapizzami.model.Dish;
 import com.omismone.strapizzami.model.Drink;
+import com.omismone.strapizzami.model.Ingredient;
 import com.omismone.strapizzami.model.Pizza;
 import com.omismone.strapizzami.services.PersistenceFacade;
 
 public class PresentationController {
 	private static PresentationController singleton;
 	private String cache;
+	private static final PersistenceFacade pf = PersistenceFacade.getInstance();
 	
 	private PresentationController() {
 		cache = null;
@@ -197,19 +200,19 @@ public class PresentationController {
 				+ "            <div style=\"min-height: 100vh; padding-top: 2em; padding-bottom: 2em;\">";		
 		String content = "";
 		
-		ArrayList<Classe> classi = PersistenceFacade.getInstance().getClassi();
-		ArrayList<Drink> drinks = PersistenceFacade.getInstance().getDrinks();
+		ArrayList<Classe> classi = pf.getClassi();
+		ArrayList<Drink> drinks = pf.getDrinks();
 		
 		if(classi != null) {
 			
 			//food
 			for(int i = 0; i<classi.size(); i++) {
-				ArrayList<Pizza> pizzas = PersistenceFacade.getInstance().getPizzasByClasse(classi.get(i));
+				ArrayList<Pizza> pizzas = pf.getPizzasByClasse(classi.get(i));
 				if(pizzas != null && pizzas.size() != 0) {
 					content += getClasseHtmlRepr(classi.get(i).getName(), classi.get(i).getDescription());
 					//print formats
 					ArrayList<String> formats = new ArrayList<String>();
-					ArrayList<Pizza> first_pizza_with_every_format = PersistenceFacade.getInstance().getPizzasByName(pizzas.get(0).getName());
+					ArrayList<Pizza> first_pizza_with_every_format = pf.getPizzasByName(pizzas.get(0).getName());
 					if(first_pizza_with_every_format != null)
 						if(first_pizza_with_every_format.size() != 0) {
 							first_pizza_with_every_format.forEach(pizza -> {formats.add(pizza.getFormat().getName());}); //take first pizza all formats name
@@ -219,7 +222,8 @@ public class PresentationController {
 					ArrayList<String> already_done_pizzas = new ArrayList<String>();
 					for(int pizzas_indx = 0; pizzas_indx < pizzas.size(); pizzas_indx++) {
 						if(already_done_pizzas.contains(pizzas.get(pizzas_indx).getName())) continue; //if a pizza with the same name was already done
-						ArrayList<Pizza> actual_pizza_withall_formats = PersistenceFacade.getInstance().getPizzasByName(pizzas.get(pizzas_indx).getName());
+						if(!pizzas.get(pizzas_indx).getVisible()) continue;
+						ArrayList<Pizza> actual_pizza_withall_formats = pf.getPizzasByName(pizzas.get(pizzas_indx).getName());
 						already_done_pizzas.add(actual_pizza_withall_formats.get(0).getName());
 						ArrayList<String> ingredients = new ArrayList<String>();
 						actual_pizza_withall_formats.get(0).getIngredients().forEach(ingre -> {ingredients.add(ingre.getName() + (ingre.getFrozen() ? '*':""));});
@@ -227,11 +231,11 @@ public class PresentationController {
 						ArrayList<String> prices = new ArrayList<String>();
 						actual_pizza_withall_formats.forEach(pzza -> {prices.add(String.format("%.2f", pzza.getPrice()));});
 						
-						content += getFoodHtmlRepr(actual_pizza_withall_formats.get(0).getName(), prices, ingredients);
+						content += getFoodHtmlRepr(capitalize(actual_pizza_withall_formats.get(0).getName()), prices, ingredients,false);
 					}
 				}
 
-				ArrayList<Dish> dishes = PersistenceFacade.getInstance().getDishesByClasse(classi.get(i));
+				ArrayList<Dish> dishes = pf.getDishesByClasse(classi.get(i));
 				if(dishes != null && dishes.size() != 0) {
 					content += getClasseHtmlRepr(classi.get(i).getName(), classi.get(i).getDescription());
 					
@@ -241,9 +245,9 @@ public class PresentationController {
 						prices2.add(String.format("%.2f",dishes.get(i2).getPrice()));
 						if(dishes.get(i2).getIngredients() != null) {
 							dishes.get(i2).getIngredients().forEach(ingredient2 -> {ingredients2.add(ingredient2.getName() + (ingredient2.getFrozen() ? '*':""));});
-							content += getFoodHtmlRepr(dishes.get(i2).getName(), prices2, ingredients2);
+							content += getFoodHtmlRepr(capitalize(dishes.get(i2).getName()), prices2, ingredients2, dishes.get(i2).getFrozen());
 						}else {
-							content += getFoodHtmlRepr(dishes.get(i2).getName(), prices2, null);
+							content += getFoodHtmlRepr(capitalize(dishes.get(i2).getName()), prices2, null,dishes.get(i2).getFrozen());
 						}
 					}
 				}
@@ -271,12 +275,12 @@ public class PresentationController {
 					String actual_format = drinks.get(j).getFormat();
 					if(!already_done_formats.contains(actual_format)) {
 						content += getClasseHtmlRepr("Bevande", "in " + actual_format);
-						ArrayList<Drink> byformat = PersistenceFacade.getInstance().getDrinksByFormat(actual_format);
+						ArrayList<Drink> byformat = pf.getDrinksByFormat(actual_format);
 						String name_b = "";
 						if(byformat != null) {
 							for(int z = 0; z<byformat.size(); z++) {
 								name_b = byformat.get(z).getName() + " (" + String.valueOf(byformat.get(z).getQuantity()) + "cl)";
-								content += getFoodHtmlRepr(name_b, new ArrayList<String>(Arrays.asList(String.format("%.2f", byformat.get(z).getPrice()))), null);
+								content += getFoodHtmlRepr(capitalize(name_b), new ArrayList<String>(Arrays.asList(String.format("%.2f", byformat.get(z).getPrice()))), null,false);
 							}
 						}
 						already_done_formats.add(actual_format);
@@ -284,6 +288,38 @@ public class PresentationController {
 				}
 			}
 			
+			
+			//add prezzo ingredienti
+			content += "<br><br>";
+			content += getClasseHtmlRepr("ingredienti extra", "");
+			HashMap<Float, String> mappa = new HashMap<Float,String>(15);
+			Float current_price;
+			for(Ingredient ing : pf.getIngredients()) {
+				current_price = ing.getPrice();
+				if(current_price == null) continue;
+				
+				if(!mappa.containsKey(current_price)) {
+					mappa.put(current_price,"");
+					mappa.put(current_price, mappa.get(current_price) + capitalize(ing.getName()));
+				}
+				else {
+					mappa.put(current_price, mappa.get(current_price) + ", " + capitalize(ing.getName()));					
+				}
+			}
+			ArrayList<String> current_ingr;
+			for(Float prz : mappa.keySet()) {
+				if(prz == 1) continue;
+				current_ingr = new ArrayList<String>();
+				current_ingr.add(mappa.get(prz));
+				content += getFoodHtmlRepr(prz != 0 ? "€ " + String.format("%.2f", prz) : "gratis", null, current_ingr, false);
+			}
+			current_ingr = new ArrayList<String>();
+			current_ingr.add("tutti gli altri");
+			content += getFoodHtmlRepr("€ 1,00", null, current_ingr, false);
+			content += "<br>";
+			
+			
+			//scritta prodotti surgelati*
 			ArrayList<String> info_prod = new ArrayList<String>();
 			info_prod.add("*prodotto surgelato");
 			
@@ -320,7 +356,7 @@ public class PresentationController {
 	
 	}
 	
-	private String getFoodHtmlRepr(String nome, ArrayList<String> prezzi, ArrayList<String> ingredienti) {
+	private String getFoodHtmlRepr(String nome, ArrayList<String> prezzi, ArrayList<String> ingredienti, Boolean frozen) {
 		/*
 		 *<div class="food-container">
 		 *	<div class="food">
@@ -333,7 +369,8 @@ public class PresentationController {
 		String r = "<div class=\"food-container\">";
 		r += "<div class=\"food\">";
 		r += "<div class=\"food-name\"><h3>";
-		r += nome;
+		r += frozen ? nome + "*" : nome;
+		
 		r += "</h3></div>";
 		
 		if(prezzi != null) {
@@ -351,7 +388,7 @@ public class PresentationController {
 		if(ingredienti != null) {
 			r += "<div class=\"ingredients\"><h6>(";
 			for (int j = 0; j < ingredienti.size(); j++) {
-				r += ingredienti.get(j);
+				r += capitalize(ingredienti.get(j));
 				if(j != ingredienti.size()-1) r += ", ";
 			}
 			r += ")</h6></div>";
@@ -374,7 +411,7 @@ public class PresentationController {
 		r += "<div class=\"classe-container\">";
 		if(nome_classe.contains("ettimana")) r += "<div class=\"classe-title-special\">"; //un po' troppo hard coded mi sa
 		else r += "<div class=\"classe-title\">";
-		r += "<h1>" + nome_classe + "</h1>";
+		r += "<h1>" + capitalize(nome_classe) + "</h1>";
 		if(descrizione_classe != null) {
 			r += "<h3>&nbsp; " + descrizione_classe + " &nbsp;</h3>";
 		}
@@ -398,5 +435,10 @@ public class PresentationController {
 		r += "</h6>";
 		r += "</div>";
 		return r;
+	}
+	
+	private String capitalize(String str) {
+		if(str == null || str.length() < 2) return str;
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 }
