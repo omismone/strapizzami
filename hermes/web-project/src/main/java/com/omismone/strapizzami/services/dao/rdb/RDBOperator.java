@@ -374,4 +374,21 @@ public class RDBOperator {
         }
         catch (SQLException e) { return false; }
     }
+    
+    /**
+     * call startConnection() before this method!
+     * AND call closeConnection() after!!
+     * @return
+     */
+    public Boolean hidePizza(Connection connection, String pizza_name){
+        try {
+        	PreparedStatement statement;
+            String query = "update thoth.pizza set VISIBILE = 0 where pizza.NOME = '?';";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, pizza_name);
+			statement.executeUpdate();
+			return true;
+        }
+        catch (SQLException e) { return false; }
+    }
 }
