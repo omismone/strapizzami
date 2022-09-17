@@ -7,8 +7,8 @@ public class Drink {
     private float price;
 
     public Drink(String name, String format, int quantity, float price) {
-        this.name = name.toLowerCase();
-        this.format = format.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
+        this.format = format == null ? null : format.toLowerCase();
         this.quantity = quantity;
         this.price = price;
     }
@@ -18,7 +18,7 @@ public class Drink {
     }
 
     public void setName(String name){
-        this.name = name.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
     }
 
     public String getFormat() {
@@ -26,7 +26,7 @@ public class Drink {
     }
 
     public void setFormat(String format) {
-        this.format = format.toLowerCase();
+        this.format = format == null ? null : format.toLowerCase();
     }
 
     public int getQuantity() {

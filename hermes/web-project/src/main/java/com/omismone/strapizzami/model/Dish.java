@@ -10,7 +10,7 @@ public class Dish {
     private ArrayList<Ingredient> ingredients;
 
     public Dish(String name, Classe classe, Boolean frozen, float price, ArrayList<Ingredient> ingredients) {
-        this.name = name.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
         this.classe = classe;
         this.frozen = frozen;
         this.price = price;
@@ -22,7 +22,7 @@ public class Dish {
     }
 
     public void setName(String name) {
-        this.name = name.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
     }
 
     public Classe getClasse() {

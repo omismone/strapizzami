@@ -5,8 +5,8 @@ public class Classe {
     private String description;
     private Integer relevance;
     public Classe(String name, String description, Integer relevance){
-        this.name = name.toLowerCase();
-        this.description = description.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
+        this.description = description == null ? null : description.toLowerCase();
         this.relevance = relevance;
     }
     public String getName(){

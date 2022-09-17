@@ -6,7 +6,7 @@ public class Ingredient {
     private float price;
 
     public Ingredient(String name, Boolean frozen, float price){
-        this.name = name.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
         this.frozen = frozen;
         this.price = price;
     }
@@ -15,7 +15,7 @@ public class Ingredient {
         return name;
     }
     public void setName(String new_name){
-        name = new_name.toLowerCase();
+        name = new_name == null ? null : new_name.toLowerCase();
     }
 
     public Boolean getFrozen(){

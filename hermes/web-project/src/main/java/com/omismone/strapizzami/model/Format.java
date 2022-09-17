@@ -4,7 +4,7 @@ public class Format {
     private String name;
 
     public Format(String name){
-        this.name = name.toLowerCase();
+        this.name = name == null ? null : name.toLowerCase();
     }
     public String getName(){
         return this.name;
