@@ -2,6 +2,7 @@ package com.omismone.strapizzami.view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 import com.omismone.strapizzami.controller.AdminController;
 
@@ -54,16 +55,15 @@ public class amministrazione extends HttpServlet {
 	    String name=request.getParameter("name");  
 	    String price=request.getParameter("price");
 	    String[] ingredients_name=request.getParameterValues("ingredientsName");
-	    String[] ingredients_price=request.getParameterValues("ingredientsPrice");
 	    
 	    //want to insert a new pizza
 	    if(name != null && price != null && ingredients_name != null && ingredients_name.length != 0) {
 	    	
-    		//se c'è un parametro ingredientFrozen2 significa che il secondo ingrediente è surgelato!
-		    Boolean[] ingredients_frozen = new Boolean[ingredients_name.length];
-	    	for(int k = 0; k< ingredients_name.length; k++) {
-	    		ingredients_frozen[k] = request.getParameterValues("ingredientsFrozen" + k) == null ? false : true;
-	    	}
+	    	//come richiesto da specifiche: gli ingredienti non saranno presentati nel menù
+	    	String[] ingredients_price = new String[ingredients_name.length];
+	    	Arrays.fill(ingredients_price, "1000");
+	    	Boolean[] ingredients_frozen = new Boolean[ingredients_name.length];
+	    	Arrays.fill(ingredients_frozen, false);
 	    	
 	    	if(contr.insertWeeklyPizza(name, Float.parseFloat(price), ingredients_name, ingredients_price, ingredients_frozen))
 	    	{
