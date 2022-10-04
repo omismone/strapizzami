@@ -84,6 +84,7 @@
                         <ol class="carousel-indicators">
                             <li data-target="#news" data-slide-to="0" class="active"></li>
                             <li data-target="#news" data-slide-to="1"></li>
+                            <li data-target="#news" data-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -91,6 +92,9 @@
                             </div>
                             <div class="carousel-item">
                                 <a href="https://www.instagram.com/p/Cd-rq15Im4-/?hl=it"><img class="d-block w-100" src="assets/treanni.png" alt="Last news"></a>
+                            </div>
+                            <div class="carousel-item">
+                                <a href="/menu"><img class="d-block w-100" src="assets/halloween.png" alt="Halloween pizzas"></a>
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#news" role="button" data-slide="prev">
